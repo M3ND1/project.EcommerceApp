@@ -1,4 +1,5 @@
 using EcommerceApp.Data;
+using EcommerceApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,11 +10,23 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("myConnString")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 //identity
-var connectionString = builder.Configuration.GetConnectionString("myConnString") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddDbContext<CommerceIdentity>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("myConnString")));
+//var connectionString = builder.Configuration.GetConnectionString("myConnString") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDefaultIdentity<AppUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+})
+    .AddEntityFrameworkStores<CommerceIdentity>()
+    .AddDefaultTokenProviders();
+
+
 builder.Services.AddControllersWithViews();
 //dp injection
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

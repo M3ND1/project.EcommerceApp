@@ -15,7 +15,7 @@ namespace EcommerceApp.Models
         public DateTime CreatedAt { get; set; }
 
         //Relations
-        public ICollection<ProductCategory> ProductCategories { get; set; }
-        public ICollection<ProductOrder> ProductOrders { get; set; }
+        public virtual ICollection<ProductCategory> ProductCategories { get; set; }
+        public virtual ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }

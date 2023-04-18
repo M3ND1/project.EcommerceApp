@@ -5,7 +5,7 @@ namespace EcommerceApp.Models
     public class Review
     {
         public int Id { get; set; }
-        //public string UserId { get; set; }
+        public string UserId { get; set; }
         public string Text { get; set; }
         public int Rating { get; set; }
         [DataType(DataType.DateTime)]
@@ -14,6 +14,6 @@ namespace EcommerceApp.Models
         //Relations
         public int ProductId { get; set; }
         public Product Product { get; set; }
-        //public ApplicationUser  User { get; set; }
+        public AppUser User { get; set; }
     }
 }
