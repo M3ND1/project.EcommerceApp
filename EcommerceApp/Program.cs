@@ -1,3 +1,4 @@
+using EcommerceApp;
 using EcommerceApp.Data;
 using EcommerceApp.Models;
 using Microsoft.AspNetCore.Identity;
@@ -19,16 +20,38 @@ builder.Services.AddDefaultIdentity<AppUser>(options =>
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = false;
     options.Password.RequireUppercase = false;
-})
+})  
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CommerceIdentity>()
     .AddDefaultTokenProviders();
+builder.Services.AddScoped<SeedDb>();
 
 
 builder.Services.AddControllersWithViews();
-//dp injection
 
+//===
 var app = builder.Build();
+using var scope = app.Services.CreateScope();
+//var services = scope.ServiceProvider;
+//var context = services.GetRequiredService<AppDbContext>();
+//var userManager = services.GetRequiredService<UserManager<AppUser>>();
+//var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
+////seed db
+//SeedDb.SeedDatabase(context,userManager,roleManager).Wait();
+
+await SeedData(app);
+async Task SeedData(IHost app)
+{
+    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using(var scope = scopedFactory.CreateScope())
+    {
+        var service = scope.ServiceProvider;
+        var seedDb = service.GetRequiredService<SeedDb>();
+        await seedDb.SeedDatabase();
+    }
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

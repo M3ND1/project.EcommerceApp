@@ -11,6 +11,13 @@ namespace EcommerceApp.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Ignore<Category>();
+            modelBuilder.Ignore<Order>();
+            modelBuilder.Ignore<Product>();
+            modelBuilder.Ignore<Review>();
+            modelBuilder.Ignore<ProductCategory>();
+            modelBuilder.Ignore<ProductOrder>();
         }
     }
 }

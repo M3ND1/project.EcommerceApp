@@ -14,7 +14,7 @@ namespace EcommerceApp.Models
         public bool IsShipped { get; set; }
 
         //Relations 
-        public virtual ICollection<ProductOrder> ProductOrders { get; set; }
+        public virtual ICollection<ProductOrder>? ProductOrders { get; set; }
         public AppUser User { get; set; }
     }
 }
