@@ -1,0 +1,36 @@
+﻿@model IEnumerable<EcommerceApp.ViewModels.ProductCategoryOrderVM>
+@{
+    ViewData["Title"] = "All Products";
+}
+
+<table class="table table-striped"> 
+    <caption>List of Product associated with Categories name and isShipped</caption>
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(m => m.Product.Id)</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">@Html.DisplayNameFor(m => m.Product.Description)</th>
+            <th scope="col">@Html.DisplayNameFor(m => m.Product.CreatedAt)</th>
+            <th scope="col">@Html.DisplayNameFor(m => m.Product.Price)</th>
+            <th scope="col">@Html.DisplayNameFor(m => m.Product.ImageUrl)</th>
+            <th scope="col">Category Name</th>
+            <th scope="col">isShipped</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr scope="row">
+                <td>@Html.DisplayFor(m => item.Product.Id)</td>
+                <td>@Html.DisplayFor(m => item.Product.Name)</td>
+                <td>@Html.DisplayFor(m => item.Product.Description)</td>
+                <td>@Html.DisplayFor(m => item.Product.CreatedAt)</td>
+                <td>@Html.DisplayFor(m => item.Product.Price)$</td>
+                <td><a href="@Html.DisplayFor(m => item.Product.ImageUrl)" target="_blank">link</a></td>
+                <td>@Html.DisplayFor(m => item.Categories.Name)</td>
+                <td>@Html.CheckBoxFor(m => item.Order.IsShipped, new {@onclick = "return false;"})</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

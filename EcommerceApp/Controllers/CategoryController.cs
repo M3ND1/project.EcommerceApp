@@ -7,22 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EcommerceApp.Data;
 using EcommerceApp.Models;
+using EcommerceApp.Interfaces;
 
 namespace EcommerceApp.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly AppDbContext _context;
-
-        public CategoryController(AppDbContext context)
+        private readonly ICategoryRepository _categoryRepository;
+        public CategoryController(ICategoryRepository categoryRepository)
         {
-            _context = context;
+            _categoryRepository = categoryRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var data = _context.Categories.ToList();
-            return View(data);
+            var allCategories = _categoryRepository.GetAllCategories();
+            return View(allCategories);
         }
     }
 }

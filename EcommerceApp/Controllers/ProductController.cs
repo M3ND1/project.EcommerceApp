@@ -1,18 +1,20 @@
 ﻿using EcommerceApp.Data;
+using EcommerceApp.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace EcommerceApp.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly AppDbContext _context;
-        public ProductController(AppDbContext context)
+        private readonly IProductRepository _productRepository;
+        public ProductController(IProductRepository productRepository)
         {
-            _context = context;
+            _productRepository = productRepository;
         }
         public IActionResult Index()
         {
-            var data = _context.Products.ToList();
+            var data = _productRepository.getallProducts();
             return View(data);
         }
     }

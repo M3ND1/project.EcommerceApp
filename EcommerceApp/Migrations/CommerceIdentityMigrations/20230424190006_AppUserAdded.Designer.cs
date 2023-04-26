@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceApp.Migrations.CommerceIdentityMigrations
 {
     [DbContext(typeof(CommerceIdentity))]
-    [Migration("20230421163312_UserRegistrationLogin")]
-    partial class UserRegistrationLogin
+    [Migration("20230424190006_AppUserAdded")]
+    partial class AppUserAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

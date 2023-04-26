@@ -1,5 +1,6 @@
 using EcommerceApp;
 using EcommerceApp.Data;
+using EcommerceApp.Interfaces;
 using EcommerceApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,38 +8,39 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(options =>
+//Dependency Injection
+builder.Services.AddScoped<IProductCategoryOrderRepository, ProductCategoryOrderRepository>(); //for user
+builder.Services.AddScoped<IProductRepository, ProductRepository>(); //TODO: admin panel in future
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); // =||=
+//DbContexts
+builder.Services.AddDbContext<AppDbContext>(options => //default dbcontext
     options.UseSqlServer(builder.Configuration.GetConnectionString("myConnString")));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-//identity
 builder.Services.AddDbContext<CommerceIdentity>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("myConnString")));
-//var connectionString = builder.Configuration.GetConnectionString("myConnString") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    options.UseSqlServer(builder.Configuration.GetConnectionString("myConnString"))); // identity
+
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+//AppUser
 builder.Services.AddDefaultIdentity<AppUser>(options =>
 {
+    options.Password.RequiredLength = 6;
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = false;
     options.Password.RequireUppercase = false;
-})  
+})
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CommerceIdentity>()
     .AddDefaultTokenProviders();
-builder.Services.AddScoped<SeedDb>();
 
+builder.Services.AddScoped<RoleManager<IdentityRole>>();
+builder.Services.AddScoped<UserManager<AppUser>>();
+
+builder.Services.AddScoped<SeedDb>();
 
 builder.Services.AddControllersWithViews();
 
 //===
 var app = builder.Build();
-using var scope = app.Services.CreateScope();
-//var services = scope.ServiceProvider;
-//var context = services.GetRequiredService<AppDbContext>();
-//var userManager = services.GetRequiredService<UserManager<AppUser>>();
-//var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-////seed db
-//SeedDb.SeedDatabase(context,userManager,roleManager).Wait();
 
 await SeedData(app);
 async Task SeedData(IHost app)

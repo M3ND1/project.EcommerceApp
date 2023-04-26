@@ -12,7 +12,7 @@ namespace EcommerceApp.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<ProductOrder> ProductOrders { get; set; }
-        //public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //FK Order Product table
