@@ -1,0 +1,38 @@
+﻿@model EcommerceApp.ViewModels.ProductVM;
+@{
+    ViewData["Title"] = "Create Product";
+}
+
+<div class="container">
+    <form asp-action="CreateProduct">
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" type="text" class="form-control" placeholder="Enter Your Name" aria-describedby="nameHelp"/>
+            <small id="nameHelp" class="form-text text-muted">Your name will be only needed for Your orders.</small>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <input asp-for="Description" type="text" class="form-control" placeholder="Enter description for your product" aria-describedby="nameHelp" />
+            <small id="nameHelp" class="form-text text-muted">Description will show when product will be moderated and added</small>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageUrl">Image URL</label>
+            <input asp-for="ImageUrl" type="text" class="form-control" placeholder="Enter product image url" aria-describedby="nameHelp" />
+            <small id="nameHelp" class="form-text text-muted">Note that this image cannot contain nudity</small>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price">Product Price</label>
+            <input asp-for="Price" type="number" class="form-control" placeholder="Enter product price" aria-describedby="nameHelp" />
+            <small id="nameHelp" class="form-text text-muted">Type how much money will your product cost</small>
+        </div>
+        <div class="form-group">
+            <label asp-for="SelectedCategoryId" class="control-label"></label>
+            @Html.DropDownListFor(model => model.SelectedCategoryId, 
+                                    new SelectList(Model.Categories, "Id", "Name"), //items displayed in dropdown list
+                                    "Select Category", 
+                                    new {@class = "form-control"})
+        </div>
+        <input class="btn btn-outline-success" type="submit" asp-action="CreateProduct"/>
+        <input class="btn btn-outline-secondary" asp-action="Index" name="Go back"/>
+    </form>
+</div>

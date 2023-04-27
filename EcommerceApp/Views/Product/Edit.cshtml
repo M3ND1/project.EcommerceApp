@@ -1,0 +1,35 @@
+﻿@model EcommerceApp.Models.Product;
+@{
+    ViewData["Title"] = "Product Edit";
+}
+
+<h2 class="text-center">@Model.Name edition</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <form method="post">
+            <caption class="text-center">Note that you only see product, if you want to category assigned to it choose allProduct bookmark!</caption>
+            <div class="form-group justify-content-center text-center">
+                <img src="@Model.ImageUrl" style="width:200px;height:200px;" />
+            </div>
+            <div class="input-group mb-1">
+                <span class="input-group-text" id="add2">Name</span>
+                <input asp-for="Name" aria-describedby="add2" placeholder="@Model.Name" aria-label="@Model.Name" class="form-control" value="@Model.Name" />
+            </div>
+            <div class="input-group mb-1">
+                <span class="input-group-text" id="add3">Description</span>
+                <input asp-for="Description" aria-describedby="add4" placeholder="@Model.Description" aria-label="@Model.Description" class="form-control" value="@Model.Description" />
+            </div>
+            <div class="input-group mb-1">
+                <span class="input-group-text" id="add4">Image URL</span>
+                <input asp-for="ImageUrl" aria-describedby="add4" placeholder="@Model.ImageUrl" aria-label="@Model.ImageUrl" class="form-control" value="@Model.ImageUrl"/>
+            </div>
+            <div class="input-group mb-1">
+                <span class="input-group-text" id="add5">$</span>
+                <input asp-for="Price" aria-describedby="add5" placeholder="@Model.Price" aria-label="@Model.Price" class="form-control" value="@Model.Price" />
+            </div>
+            <button asp-controller="Product" asp-action="EditProduct" asp-route-id="@Model.Id" class="btn btn-success">Confirm</button>
+            <button class="btn btn-outline-secondary" type="submit" asp-action="Index">Go Back</button>
+        </form>
+    </div>
+</div>

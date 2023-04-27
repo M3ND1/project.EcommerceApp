@@ -1,0 +1,20 @@
+﻿@model EcommerceApp.Models.Category;
+@{
+    ViewData["Title"] = "Category Edit";
+}
+
+<h2 class="text-center">@Model.Name edition</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <form method="post">
+            <caption class="text-center">Note that you only see product, if you want to category assigned to it choose allProduct bookmark!</caption>
+            <div class="input-group mb-1">
+                <span class="input-group-text" id="add2">Name</span>
+                <input asp-for="Name" aria-describedby="add2" placeholder="@Model.Name" aria-label="@Model.Name" class="form-control" value="@Model.Name" />
+            </div>
+            <button asp-controller="Category" asp-action="EditCategory" asp-route-id="@Model.Id" class="btn btn-success">Confirm</button>
+            <button class="btn btn-outline-secondary" type="submit" asp-action="Index">Go Back</button>
+        </form>
+    </div>
+</div>

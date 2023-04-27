@@ -1,0 +1,45 @@
+﻿@model EcommerceApp.Models.Product;
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h2 class="text-center">@Model.Name details</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <form>
+            <caption class="text-center">Details for @Model.Name</caption>
+            <div class="form-group justify-content-center text-center">
+                <img src="@Model.ImageUrl" style="width:200px;height:200px;"/>
+            </div>
+            <div class="input-group mb-1">
+                <div class="input-group-prepend"> 
+                    <span class="input-group-text" id="add1">Id</span>
+                </div>
+                <input aria-describedby="add1" placeholder="@Model.Id" class="form-control" readonly />
+            </div>
+            <div class="input-group mb-1">
+                <span class="input-group-text" id="add2">Name</span>
+                <input aria-describedby="add2" placeholder="@Model.Name" aria-label="@Model.Name" class="form-control" readonly />
+            </div>
+            <div class="input-group mb-1">
+                <span class="input-group-text" id="add3">Description</span>
+                <input aria-describedby="add4" placeholder="@Model.Description" aria-label="@Model.Description" class="form-control" readonly />
+            </div>
+            <div class="input-group mb-1">
+                <span class="input-group-text" id="add4">Image URL</span>
+                <input aria-describedby="add4" placeholder="@Model.ImageUrl" aria-label="@Model.ImageUrl" class="form-control" readonly />
+            </div>
+            <div class="input-group mb-1">
+                <span class="input-group-text" id="add5">$</span>
+                <input aria-describedby="add5" placeholder="@Model.Price" aria-label="@Model.Price" class="form-control" readonly />
+            </div>
+            <div class="input-group mb-2">
+                <span class="input-group-text" id="add5=6">Creation Time</span>
+                <input aria-describedby="add6" placeholder="@Model.CreatedAt" aria-label="@Model.CreatedAt" class="form-control" readonly />
+            </div>
+            <button class="btn btn-primary" type="submit" asp-action="Edit" asp-route-id="@Model.Id"> Edit</button>
+            <button class="btn btn-outline-secondary" type="submit" asp-action="Index">Go Back</button>
+        </form>
+    </div>
+</div>
