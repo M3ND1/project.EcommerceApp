@@ -13,10 +13,10 @@ builder.Services.AddScoped<IProductCategoryOrderRepository, ProductCategoryOrder
 builder.Services.AddScoped<IProductRepository, ProductRepository>(); //TODO: admin panel in future
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); // =||=
 //DbContexts
-builder.Services.AddDbContext<AppDbContext>(options => //default dbcontext
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("myConnString")));
 builder.Services.AddDbContext<CommerceIdentity>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("myConnString"))); // identity
+    options.UseSqlServer(builder.Configuration.GetConnectionString("myConnString")));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 //AppUser

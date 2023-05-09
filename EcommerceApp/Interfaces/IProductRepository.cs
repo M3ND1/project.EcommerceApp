@@ -10,5 +10,6 @@ namespace EcommerceApp.Interfaces
         public Product GetProductById(int id);
         public bool UpdateProduct(int id, ProductVM productVM);
         public bool DeleteProduct(int id);
+        public IEnumerable<Product> SearchByName(string name);
     }
 }

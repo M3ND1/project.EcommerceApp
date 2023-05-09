@@ -43,6 +43,11 @@ namespace EcommerceApp.Interfaces
             return category!;
         }
 
+        public IEnumerable<Category> SearchByName(string name)
+        {
+            return _context.Categories.Where(c => c.Name.Contains(name)).ToList();
+        }
+
         public bool UpdateCategory(int id, Category category)
         {
             //var existingCategory = GetCategoryById(category.Id);

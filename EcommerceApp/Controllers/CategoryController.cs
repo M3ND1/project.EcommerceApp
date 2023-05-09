@@ -24,7 +24,12 @@ namespace EcommerceApp.Controllers
             var allCategories = _categoryRepository.GetAllCategories();
             return View(allCategories);
         }
-
+        [HttpPost]
+        public IActionResult Search([FromForm] string inputValue)
+        {
+            var data = _categoryRepository.SearchByName(inputValue);
+            return PartialView("_CategorySearchResults", data);
+        }
         public IActionResult Details(int id)
         {
             var category = _categoryRepository.GetCategoryById(id);

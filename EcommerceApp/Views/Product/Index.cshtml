@@ -3,42 +3,85 @@
     ViewData["Title"] = "Products";
 }
 
-<h1>Product</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6 col-md-3">
+            <h1>Products page</h1>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-6 col-md-3 justify-content-start">
+            <form method="post" asp-controller="Product" asp-action="Create">
+                <button class="btn btn-success" type="submit">Create Product</button>
+            </form>
+        </div>
+        <div class="col-6 col-md-6 justify-content-end">
+            <div class="input-group">
+                <input id="inputValue" class="form-control " type="text" name="inputValue" placeholder="Product name" />
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" id="searchButton" type="submit">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<form method="post" asp-controller="Product" asp-action="Create">
-    <button class="btn btn-success" type="submit">Create Product</button>
-</form>
+    <div class="row">
+        <div id="printProduct" class="col-12">
 
+        </div>
+    </div>
+    <div class="row md-6">
+        <div class="col-12">
+            <table class="table table-striped">
+                <caption>All Products</caption>
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Id)</th>
+                        <th>@Html.DisplayNameFor(model => model.Name)</th>
+                        <th>@Html.DisplayNameFor(model => model.Description)</th>
+                        <th>@Html.DisplayNameFor(model => model.ImageUrl)</th>
+                        <th>@Html.DisplayNameFor(model => model.Price)</th>
+                        <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
+                        <th>Edit</th>
+                        <th>Details</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="align-middle">@Html.DisplayFor(model => item.Id)</td>
+                            <td class="align-middle">@Html.DisplayFor(model => item.Name)</td>
+                            <td class="align-middle">@Html.DisplayFor(model => item.Description)</td>
+                            <td><a href="@Html.DisplayFor(m => item.ImageUrl)" target="_blank">link</a></td>
+                            <td class="align-middle">@Html.DisplayFor(model => item.Price)$</td>
+                            <td class="align-middle">@Html.DisplayFor(model => item.CreatedAt)</td>
+                            <td class="align-middle"><a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a></td>
+                            <td class="align-middle"><a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a></td>
+                            <td class="align-middle"><a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-<table class="table table-striped">
-    <caption>All Products</caption>
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Id)</th>
-            <th>@Html.DisplayNameFor(model => model.Name)</th>
-            <th>@Html.DisplayNameFor(model => model.Description)</th>
-            <th>@Html.DisplayNameFor(model => model.ImageUrl)</th>
-            <th>@Html.DisplayNameFor(model => model.Price)</th>
-            <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
-            <th>Edit</th>
-            <th>Details</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td class="align-middle">@Html.DisplayFor(model => item.Id)</td>
-                    <td class="align-middle">@Html.DisplayFor(model => item.Name)</td>
-                    <td class="align-middle">@Html.DisplayFor(model => item.Description)</td>
-                    <td><a href="@Html.DisplayFor(m => item.ImageUrl)" target="_blank">link</a></td>
-                    <td class="align-middle">@Html.DisplayFor(model => item.Price)$</td>
-                    <td class="align-middle">@Html.DisplayFor(model => item.CreatedAt)</td>
-                    <td class="align-middle"><a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a></td>
-                    <td class="align-middle"><a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a></td>
-                    <td class="align-middle"><a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
-                </tr>
-            }
-    </tbody>
-</table>
+@section scripts {
+    <script>
+        $(function () {
+            $('#searchButton').click(function () {
+                var searchTerm = $('#inputValue').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/Product/Search',
+                    data: { 'inputValue': searchTerm },
+                    success: function (result) {
+                        $('#printProduct').html(result);
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -20,6 +20,13 @@ namespace EcommerceApp.Controllers
             var data = _productRepository.GetAllProducts();
             return View(data);
         }
+        [HttpPost]
+        public IActionResult Search([FromForm] string inputValue)
+        {
+            var data = _productRepository.SearchByName(inputValue);
+            //ViewData["SearchResults"] = data; //pass viewdata to partialview of products
+            return PartialView("_ProductSearchResults", data);
+        }
         public IActionResult Create()
         {
             var productVM = new ProductVM

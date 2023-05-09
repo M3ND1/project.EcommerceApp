@@ -18,6 +18,7 @@ namespace EcommerceApp.Data
             //FK Order Product table
             modelBuilder.Entity<ProductOrder>()
                 .HasKey(po => new {po.OrderId, po.ProductId});
+            //many to many relationship
             modelBuilder.Entity<ProductOrder>()
                 .HasOne(po => po.Product)
                 .WithMany(p => p.ProductOrders)

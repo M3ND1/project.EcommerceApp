@@ -57,6 +57,12 @@ namespace EcommerceApp.Interfaces
             return product!;
         }
 
+        public IEnumerable<Product> SearchByName(string name)
+        {
+            var data = _context.Products.Where(n => n.Name.Contains(name)).ToList()!;
+            return data;
+        }
+
         public bool UpdateProduct(int id, ProductVM productVM)
         {
             var existingProduct = _context.Products.FirstOrDefault(p => p.Id == id);
