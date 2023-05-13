@@ -1,8 +1,68 @@
-﻿@{
+﻿@*To sort product via category name and print cateogires*@
+@*Add to categories imageUrl and print all names of categories with images in home site*@
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 position-sticky top-0">
+            <ul class="list-group">
+            @foreach(var item in ViewBag.Categories)
+            {
+                <li class="list-group-item"><a asp-controller="Category" asp-action="SearchCategoryProduct" style="text-decoration:none; color: darkseagreen;">@item.Name</a></li> @*href to every category that has product*@
+            }
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="jumbotron align-content-center text-center text-black mb-3" style="background-image: url(https://media.discordapp.net/attachments/955938238965641246/1106990754980704369/sale_copy.jpg?width=1440&height=504);">
+                    <h1 class="display-4">Witaj na EcommerceApp!</h1>
+                    <p class="lead">Już teraz wybierz odpowiednie dla siebie produkty!</p>
+                    <hr class="my-4">
+                    <p>Sprawdź kto wykonał ten projekt poniżej </p>
+                    <p class="lead">
+                        <a class="btn btn-secondary btn-lg" href="#" role="button">Portfolio</a>
+                    </p>
+                </div>
+            </div>
+            @for (int i = 0; i < 9; i += 3)
+            {
+                <div class="row">
+                    @foreach (var item in ViewBag.Products)
+                    {
+                        <div class="col-12 col-md-4 mb-4 justify-content-between">
+                            <div class="card h-100">
+                                <div class="card-header">
+                                    Category Name
+                                </div>
+                                <img src="@item.ImageUrl" alt="@item.Description" class="card-img-top" />
+                                <div class="card-body">
+                                    <h6 class="card-title">@item.Name</h6>
+                                    <h7 class="card-subtitle mb-2 text-muted">@item.Description</h7>
+                                    <p class="card-text">@item.Price.ToString("C")</p>
+                                    <a href="#" class="btn btn-primary">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
 </div>
+<script>
+    const liItems = document.querySelectorAll('li a');
+
+    liItems.forEach(item => {
+        item.addEventListener('mouseover', () => {
+            item.parentElement.classList.add('active');
+            item.style.color = 'white';
+        });
+        item.addEventListener('mouseout', () => {
+            item.parentElement.classList.remove('active');
+            item.style.color = 'darkseagreen';
+        });
+    });
+
+</script>

@@ -1,5 +1,7 @@
-﻿using EcommerceApp.Models;
+﻿using EcommerceApp.Interfaces;
+using EcommerceApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using System.Diagnostics;
 
 namespace EcommerceApp.Controllers
@@ -7,14 +9,23 @@ namespace EcommerceApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private IProductRepository _productRepository;
+        private ICategoryRepository _categoryRepository;
+        public HomeController(ILogger<HomeController> logger, IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
             _logger = logger;
+            _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
         }
 
         public IActionResult Index()
         {
+            var products = _productRepository.GetAllProducts().ToList();
+            var categories = _categoryRepository.GetAllCategories();
+
+            ViewBag.Products = products;
+            ViewBag.Categories = categories;
+
             return View();
         }
 
