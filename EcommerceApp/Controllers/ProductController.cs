@@ -1,5 +1,6 @@
 ﻿using EcommerceApp.Data;
-using EcommerceApp.Interfaces;
+using EcommerceApp.Interfaces.CategoryRepositories;
+using EcommerceApp.Interfaces.ProductRepositories;
 using EcommerceApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;

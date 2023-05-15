@@ -1,45 +1,107 @@
-﻿@model EcommerceApp.Models.Product;
+﻿@model Product
 @{
     ViewData["Title"] = "Product Details";
 }
 
-<h2 class="text-center">@Model.Name details</h2>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <form>
-            <caption class="text-center">Details for @Model.Name</caption>
-            <div class="form-group justify-content-center text-center">
-                <img src="@Model.ImageUrl" style="width:200px;height:200px;"/>
-            </div>
-            <div class="input-group mb-1">
-                <div class="input-group-prepend"> 
-                    <span class="input-group-text" id="add1">Id</span>
+<div class="container text-center">
+    <div class="row">
+        <p class="text-sm" style="font-family:Courier New;float:left;">Here will be categories assigned to product</p>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="sticky-top">
+                    <img style="max-width:300px; max-height:300px;justify-content:center" src="@Model.ImageUrl" class="card-img-top zoomHover" alt="@Model.Name">
                 </div>
-                <input aria-describedby="add1" placeholder="@Model.Id" class="form-control" readonly />
             </div>
-            <div class="input-group mb-1">
-                <span class="input-group-text" id="add2">Name</span>
-                <input aria-describedby="add2" placeholder="@Model.Name" aria-label="@Model.Name" class="form-control" readonly />
+        </div>
+        <div class="col-md-4 border">
+            <div class="row">
+                <h3>@Model.Name</h3>
             </div>
-            <div class="input-group mb-1">
-                <span class="input-group-text" id="add3">Description</span>
-                <input aria-describedby="add4" placeholder="@Model.Description" aria-label="@Model.Description" class="form-control" readonly />
+            <div class="row border-top">
+                <p><b>Ilosc w magazynie:</b><a>TODO</a></p>
+                @*TODO Quantity for product*@
+                @*If user select more than We have == problem*@
             </div>
-            <div class="input-group mb-1">
-                <span class="input-group-text" id="add4">Image URL</span>
-                <input aria-describedby="add4" placeholder="@Model.ImageUrl" aria-label="@Model.ImageUrl" class="form-control" readonly />
+            <div class="row border-top justify-content-start" style="float:left;"> @*change float later*@
+                <p><b>Opis: </b><a>@Model.Description</a></p>
+                <p><b>Marka: </b><a>TODO</a></p>
+                <p><b>Przedział wiekowy: </b> <a>TODO</a></p>
+                <p><b>Wymiary produktu: </b> <a>TODO</a></p>
+                <p><b>Waga produktu:: </b> <a>TODO</a></p>
+                <p><b>Kolor: </b> <a>TODO</a></p>
             </div>
-            <div class="input-group mb-1">
-                <span class="input-group-text" id="add5">$</span>
-                <input aria-describedby="add5" placeholder="@Model.Price" aria-label="@Model.Price" class="form-control" readonly />
+            <div class="row border-top mt-1">
+                <h5>Informacje o produkcie</h5>
+                Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
+                Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
+                Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
+                Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
+                Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
+                Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
+                Lorem ipsum here because here will be information about this product
             </div>
-            <div class="input-group mb-2">
-                <span class="input-group-text" id="add5=6">Creation Time</span>
-                <input aria-describedby="add6" placeholder="@Model.CreatedAt" aria-label="@Model.CreatedAt" class="form-control" readonly />
+        </div>
+        <div class="col-md-3 border rounded" style="margin-left:15px;">
+            <div class="row">
+                <h5 class="m-1" style="float:left;">@Model.Price $</h5>
             </div>
-            <button class="btn btn-primary" type="submit" asp-action="Edit" asp-route-id="@Model.Id"> Edit</button>
-            <button class="btn btn-outline-secondary" type="submit" asp-action="Index">Go Back</button>
-        </form>
+            <div class="row">
+                <div class="dropdown-show">
+                    <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Quantity
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        @for (int i = 1; i <= 10; i++)
+                        {
+                            <a class="dropdown-item" href="#"> @i</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="d-inline-flex flex-column mb-3">
+                        <button type="submit" class="btn btn-warning m-1">Dodaj do koszyka</button>
+                        <button type="submit" class="btn btn-outline-primary m-1">Kup teraz</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <p class="mt-2"style="font-style:italic;">Aby uzyskać informacje o zwrotach, kliknij w nazwe sprzedawcy</p>
+            </div>
+        </div>
+    </div>
+    <div class="row border-top mt-3 border rounded">
+        <div class="col-md-3">
+            <h4>Already bought this product? Click to add review!</h4>
+            <h5>Only you know what to tell others about this product!</h5>
+            <form asp-controller="Review" asp-action="Create" asp-route-id="@Model.Id">
+                <button type="submit" class="btn btn-outline-primary mb-2">Sumbit Review</button>
+            </form>
+        </div>
+        <div class="col-9 col-md-9">
+            <div class="row">
+                <div class="col-12">
+                    Here -> count avrg review && how much stars here below or up xD
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-2 col-md-2 border-bottom"> @*svg icon? to every user*@
+                    <b> User 1 : his rating</b>
+                </div>
+                <div class="col-10 col-md-10">
+                    His review
+                </div>
+                <div class="col-2 col-md-2">
+                    <b> User 2 : his rating</b>
+                </div>
+                <div class="col-10 col-md-10">
+                    His review
+                </div>
+            </div>
+        </div>
     </div>
 </div>

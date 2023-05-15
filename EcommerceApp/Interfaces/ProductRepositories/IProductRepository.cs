@@ -1,7 +1,7 @@
 ﻿using EcommerceApp.Models;
 using EcommerceApp.ViewModels;
 
-namespace EcommerceApp.Interfaces
+namespace EcommerceApp.Interfaces.ProductRepositories
 {
     public interface IProductRepository
     {

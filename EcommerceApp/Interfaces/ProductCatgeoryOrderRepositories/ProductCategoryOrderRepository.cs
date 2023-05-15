@@ -3,7 +3,7 @@ using EcommerceApp.Models;
 using EcommerceApp.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace EcommerceApp.Interfaces
+namespace EcommerceApp.Interfaces.ProductCatgeoryOrderRepositories
 {
     public class ProductCategoryOrderRepository : IProductCategoryOrderRepository
     {

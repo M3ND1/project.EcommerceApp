@@ -1,6 +1,6 @@
 ﻿using EcommerceApp.Models;
 
-namespace EcommerceApp.Interfaces
+namespace EcommerceApp.Interfaces.CategoryRepositories
 {
     public interface ICategoryRepository
     {

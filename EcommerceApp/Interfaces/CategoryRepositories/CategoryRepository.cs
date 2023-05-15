@@ -1,7 +1,7 @@
 ﻿using EcommerceApp.Data;
 using EcommerceApp.Models;
 
-namespace EcommerceApp.Interfaces
+namespace EcommerceApp.Interfaces.CategoryRepositories
 {
     public class CategoryRepository : ICategoryRepository
     {
@@ -13,7 +13,7 @@ namespace EcommerceApp.Interfaces
 
         public void CreateCategory(Category category)
         {
-            _context.Categories.Add(new Category { Name = category.Name});
+            _context.Categories.Add(new Category { Name = category.Name });
             _context.SaveChanges();
             //validation if category was created later (void to bool)
         }
@@ -33,7 +33,7 @@ namespace EcommerceApp.Interfaces
         public ICollection<Category> GetAllCategories()
         {
             var allCategories = _context.Categories.ToList();
-            
+
             return allCategories;
         }
 
@@ -57,7 +57,8 @@ namespace EcommerceApp.Interfaces
                 existingCategory.Name = category.Name;
                 _context.SaveChanges();
                 return true;
-            } else return false;
+            }
+            else return false;
         }
     }
 }

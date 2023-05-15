@@ -2,7 +2,7 @@
 using EcommerceApp.Models;
 using EcommerceApp.ViewModels;
 
-namespace EcommerceApp.Interfaces
+namespace EcommerceApp.Interfaces.ProductRepositories
 {
     public class ProductRepository : IProductRepository
     {
@@ -41,7 +41,7 @@ namespace EcommerceApp.Interfaces
             var deletedProduct = _context.Products.FirstOrDefault(x => x.Id == id);
             if (deletedProduct == null)
                 return true;
-           
+
             return false;
         }
 
