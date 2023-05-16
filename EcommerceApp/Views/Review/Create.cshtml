@@ -1,29 +1,91 @@
 ﻿@model EcommerceApp.Models.Review
 
-<h1>Write a Review</h1>
+<div class="row align-items-center text-center">
+    @if (Model.UserId != "")
+    {
+        <h2>Write a review:  <i class="fas fa-user"></i><b class="ml-1">@Model.UserId!</b></h2>
+        
+    }
+    else
+    {
+        <h2>Write a review</h2>
+    }
+</div>
+<form asp-controller="Review" asp-action="CreateReview" method="post">
+<div class="row justify-content-center">
+    <div class="col-6 col-md-6">
+            <div class="form-group row align-content-md-start border-top mt-3">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label asp-for="Rating"><h5>Overall Rating</h5></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <select asp-for="Rating" class="form-control bg-secondary text-white">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 ml-2">
+                        <h2 class="text-primary"><b>/5</b></h2>
+                    </div>
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row border-top mt-3">
+                <h7><b>Want to add photos?</b></h7>
+                <div class="col-auto">
+                    <label for="fileInput">Select Photos //TODO:</label>
+                </div>
+                <div class="col">
+                    <input type="file" class="form-control-file" id="fileInput" multiple>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <div class="form-group">
+                    <h5> <label asp-for="Text">Your written opinion</label> </h5>
+                    <textarea asp-for="Text" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Text" class="text-danger"></span>
+                </div>
+                @if (Model.UserId == "")
+                {
+                    <div id="popupAlert" class="alert alert-danger alert-dismissible fade show d-none mt-2" role="alert">
+                        <strong>Holy guacamole!</strong> You should first log in to be able to add a review.
+                        <button onclick="popupDelete()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-group mt-2">
+                        <button id="addReviewButton" onclick="popup()" type="submit" class="btn btn-primary">Submit Review</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group mt-2">
+                        <button type="submit" class="btn btn-primary" asp-action="CreateReview">Submit Review</button>
+                    </div>
+                }
 
-<form asp-controller="Reviews" asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="Text">Review</label>
-        <textarea asp-for="Text" class="form-control" rows="5"></textarea>
-        <span asp-validation-for="Text" class="text-danger"></span>
+                <input type="hidden" asp-for="ProductId" value="@Model.ProductId" />
+                <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+            </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Rating">Rating</label>
-        <select asp-for="Rating" class="form-control">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-        <span asp-validation-for="Rating" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-
-    <input type="hidden" asp-for="ProductId" value="@Model.ProductId" />
+</div>
 </form>
+
+<script>
+    function popup() 
+    {
+        document.getElementById('popupAlert').classList.remove('d-none');
+        return;
+    }
+    function popupDelete()
+    {
+        document.getElementById('popupAlert').classList.add('d-none');
+        return;
+    }
+</script>

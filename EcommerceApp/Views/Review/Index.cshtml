@@ -21,6 +21,14 @@
     <div class="row">
         <div id="printReview" class="col-12"></div>
     </div>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mt-2">@TempData["SuccessMessage"]</div>
+    } 
+    @if(TempData["FailMessage"] != null)
+    {
+        <div class="alert alert-danger mt-2">@TempData["FailMessage"]</div>
+    }
     @*List of Categories*@
     <div class="row md-6">
         <div class="col-12">

@@ -18,9 +18,7 @@ namespace EcommerceApp.Models
         przedzial wiekowy
         waga produktu
         cecha paterialu
-
         inforamcje o produkcie (varchar na duza ilosc znakow)
-
         */
         //Relations
         public virtual ICollection<ProductCategory>? ProductCategories { get; set; }

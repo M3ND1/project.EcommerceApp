@@ -9,14 +9,16 @@
         <p class="text-sm" style="font-family:Courier New;float:left;">Here will be categories assigned to product</p>
     </div>
     <div class="row">
-        <div class="col-md-4">
-            <div class="card text-center">
+        @*First column*@
+        <div class="col-md-4 rounded-circle">
+            <div id="zoomOnHover" class="card text-center">
                 <div class="sticky-top">
-                    <img style="max-width:300px; max-height:300px;justify-content:center" src="@Model.ImageUrl" class="card-img-top zoomHover" alt="@Model.Name">
+                    <img style="max-width:300px; max-height:300px;justify-content:center" src="@Model.ImageUrl" class="card-img-top" alt="@Model.Name">
                 </div>
             </div>
         </div>
-        <div class="col-md-4 border">
+        @*Second Column*@
+        <div class="col-md-4 offset-md-1 border rounded ">
             <div class="row">
                 <h3>@Model.Name</h3>
             </div>
@@ -25,7 +27,7 @@
                 @*TODO Quantity for product*@
                 @*If user select more than We have == problem*@
             </div>
-            <div class="row border-top justify-content-start" style="float:left;"> @*change float later*@
+            <div class="row border-top text-left">
                 <p><b>Opis: </b><a>@Model.Description</a></p>
                 <p><b>Marka: </b><a>TODO</a></p>
                 <p><b>Przedział wiekowy: </b> <a>TODO</a></p>
@@ -33,7 +35,9 @@
                 <p><b>Waga produktu:: </b> <a>TODO</a></p>
                 <p><b>Kolor: </b> <a>TODO</a></p>
             </div>
-            <div class="row border-top mt-1">
+            <b>TODO BUTTON LATER below</b>
+            <button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target="#more-info">More Info</button>
+            <div id="more-info" class="collapse">
                 <h5>Informacje o produkcie</h5>
                 Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
                 Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
@@ -44,12 +48,13 @@
                 Lorem ipsum here because here will be information about this product
             </div>
         </div>
-        <div class="col-md-3 border rounded" style="margin-left:15px;">
+        @*Third Column*@
+        <div class="col-md-2 offset-md-1 border rounded ml-auto">
             <div class="row">
                 <h5 class="m-1" style="float:left;">@Model.Price $</h5>
             </div>
             <div class="row">
-                <div class="dropdown-show">
+                <div class="dropdown">
                     <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Quantity
                     </a>
@@ -74,10 +79,23 @@
             </div>
         </div>
     </div>
+    @*Similar Products*@
+    <div class="row border-top align-items-center mt-3">
+        <h3>Here we will have  similar products</h3>
+        <h5>To the product that we have </h5>
+        <h7>To category that he is assigned to </h7>
+        <div class="align-items-start">
+            @for(int i=0;i<9;i++)
+            {
+                <img style="max-height:100px;max-width:100px;" class="card-img mr-3" src="https://images.pexels.com/photos/3184306/pexels-photo-3184306.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+            }
+        </div>
+    </div>
+    @*Reviews*@
     <div class="row border-top mt-3 border rounded">
         <div class="col-md-3">
-            <h4>Already bought this product? Click to add review!</h4>
-            <h5>Only you know what to tell others about this product!</h5>
+            <h5>Already bought this product? Click to add review!</h5>
+            <h6 class="border-right">Only you know what to tell others about this product!</h6>
             <form asp-controller="Review" asp-action="Create" asp-route-id="@Model.Id">
                 <button type="submit" class="btn btn-outline-primary mb-2">Sumbit Review</button>
             </form>
@@ -89,10 +107,10 @@
                 </div>
             </div>
             <div class="row mt-2">
-                <div class="col-2 col-md-2 border-bottom"> @*svg icon? to every user*@
+                <div class="col-2 col-md-2 border-bottom border-right"> @*svg icon? to every user*@
                     <b> User 1 : his rating</b>
                 </div>
-                <div class="col-10 col-md-10">
+                <div class="col-10 col-md-10 border-bottom">
                     His review
                 </div>
                 <div class="col-2 col-md-2">
