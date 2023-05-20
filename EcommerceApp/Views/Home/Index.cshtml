@@ -1,57 +1,95 @@
 ﻿@*To sort product via category name and print cateogires*@
 @*Add to categories imageUrl and print all names of categories with images in home site*@
+@model EcommerceApp.ViewModels.ProductCategoryVM
+@{
+    var categories = Model.Categories;
+    var productCategory = Model.ProductCategories;
+}
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
+        <div class="jumbotron align-content-center text-center text-black mb-3" style="background-image: url(https://media.discordapp.net/attachments/955938238965641246/1106990754980704369/sale_copy.jpg?width=1440&height=504);">
+            <h1 class="display-4">Witaj na EcommerceApp!</h1>
+            <p class="lead">Już teraz wybierz odpowiednie dla siebie produkty!</p>
+            <hr class="my-4">
+            <p>Sprawdź kto wykonał ten projekt poniżej </p>
+            <p class="lead">
+                <a class="btn btn-secondary btn-lg" href="#" role="button">Portfolio</a>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-2">
+            @*Categories*@
             <div class="sticky-top" style="top: 20px;">
                 <h3>Categories</h3>
                 <ul class="list-group">
-                @foreach(var item in ViewBag.Categories)
+                @foreach(var item in categories)
                 {
-                    <li class="list-group-item"><a asp-controller="Category" asp-action="SearchCategoryProduct" style="text-decoration:none; color: #212529;">@item.Name</a></li>
+                        <li class="list-group-item"><a asp-controller="Category" asp-action="SearchCategoryProduct" style="text-decoration:none; color: #212529;">@item.Name</a></li>
                     @*href to every category that has product*@
                 }
                 </ul>
             </div>
         </div>
-        <div class="col-md-10">
-            <div class="row">
-                <div class="jumbotron align-content-center text-center text-black mb-3" style="background-image: url(https://media.discordapp.net/attachments/955938238965641246/1106990754980704369/sale_copy.jpg?width=1440&height=504);">
-                    <h1 class="display-4">Witaj na EcommerceApp!</h1>
-                    <p class="lead">Już teraz wybierz odpowiednie dla siebie produkty!</p>
-                    <hr class="my-4">
-                    <p>Sprawdź kto wykonał ten projekt poniżej </p>
-                    <p class="lead">
-                        <a class="btn btn-secondary btn-lg" href="#" role="button">Portfolio</a>
-                    </p>
-                </div>
-            </div>
+        <div class="col-12 col-md-10">
+            <div class="container-fluid w-100 h-100 bg-light">
                 <div class="row">
-                    @foreach (var item in ViewBag.Products)
-                    {
-                        <div class="col-12 col-md-4 mb-4 justify-content-between">
-                            <div class="card h-100">
-                                <div class="card-header">
-                                    Category Name
+                    <div class="col-12 col-md-3 justify-content-between mt-3 mb-3">
+                        <div class="card border-dark h-100">
+                            <div class="card-header border-dark border-bottom bg-secondary text-white">
+                                @foreach (var category in productCategory[0].Categories)
+                                {
+                                    <a class="text-white pd-3" style="text-decoration:none;" asp-controller="Category" asp-action="Details" asp-route-id="@category.Id">@category.Name</a>
+                                }
+                            </div>
+                            <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[0].Id">
+                                <img class="card-img-top" src="@productCategory[0].ImageUrl" alt="@productCategory[0].Description" />
+                            </a>
+                            <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[0].Id" style="text-decoration:none;">
+                                <div class="card-body border-dark border-top bg-light">
+                                    <h6 class="card-title">@productCategory[0].Name</h6>
+                                    <h7 class="card-subtitle mb-2 text-muted">@productCategory[0].Description</h7>
+                                    <p class="card-text">@productCategory[0].Price.ToString("C")</p>
                                 </div>
-                                <a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id">
-                                    <img src="@item.ImageUrl" alt="@item.Description" class="card-img-top" />
-                                </a>
-                                <a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id" style="text-decoration:none;">
-                                    <div class="card-body">
-                                        <h6 class="card-title">@item.Name</h6>
-                                        <h7 class="card-subtitle mb-2 text-muted">@item.Description</h7>
-                                        <p class="card-text">@item.Price.ToString("C")</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div class="container-fluid w-100 h-100 bg-light d-flex align-items-center">
+                            <div class="row w-100 h-75 bg-secondary bg-gradient">
+                                @for (int i = 1; i < Math.Min(4, productCategory.Count); i++)
+                                {
+                                    <div class="col-4 col-md-4 mt-3">
+                                        <div class="card border-dark h-100" style="min-height: 250px; max-height: 300px;">
+                                            <div class="card-header border-dark border-bottom bg-secondary text-white">
+                                                @foreach (var category in productCategory[i].Categories)
+                                                {
+                                                    <a class="text-white pd-3" style="text-decoration:none;" asp-controller="Category" asp-action="Details" asp-route-id="@category.Id">@category.Name</a>
+                                                }
+                                            </div>
+                                            <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
+                                                <img class="card-img-top" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" style="object-fit: cover; height: 100%; width: 100%;" />
+                                            </a>
+                                            <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id" style="text-decoration:none;">
+                                                <div class="card-body border-dark border-top bg-light">
+                                                    <h7 class="card-title" style="font-size: 1.1rem;">@productCategory[i].Name</h7>
+                                                    <p class="card-text" style="font-size: 0.9rem;">@productCategory[i].Price.ToString("C")</p>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
-                                </a>
+                                }
                             </div>
                         </div>
-                    }
+                    </div>
+
+
                 </div>
+            </div>
         </div>
     </div>
 </div>

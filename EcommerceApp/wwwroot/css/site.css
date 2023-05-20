@@ -37,3 +37,23 @@ body {
     transition: all .2s ease-in-out;
     cursor: pointer;
 }
+.navbar-nav.nav-fill .nav-item {
+    width: 25%;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}
+
+.navbar-nav.nav-fill .nav-item:first-child {
+    border-left: none; 
+}
+
+.navbar-nav.nav-fill .nav-item:last-child {
+    border-right: none;
+}
+
+.navbar-nav.nav-fill .nav-item:hover {
+    background-color: #0069d9;
+    cursor: pointer;
+    transform: scale(1.2);
+    transition: all .1s ease-in-out;
+}

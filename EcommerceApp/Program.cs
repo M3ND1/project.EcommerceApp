@@ -1,6 +1,7 @@
 using EcommerceApp;
 using EcommerceApp.Data;
 using EcommerceApp.Interfaces.CategoryRepositories;
+using EcommerceApp.Interfaces.ProductCategory;
 using EcommerceApp.Interfaces.ProductCatgeoryOrderRepositories;
 using EcommerceApp.Interfaces.ProductRepositories;
 using EcommerceApp.Interfaces.ReviewRepositories;
@@ -16,6 +17,8 @@ builder.Services.AddScoped<IProductCategoryOrderRepository, ProductCategoryOrder
 builder.Services.AddScoped<IProductRepository, ProductRepository>(); //TODO: admin panel in future
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); // =||=
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>(); // =||=
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>(); // =||=
+
 //DbContexts
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("myConnString")));

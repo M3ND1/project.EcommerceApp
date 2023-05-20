@@ -14,9 +14,9 @@ namespace EcommerceApp.Interfaces.ProductCatgeoryOrderRepositories
             _context = context;
         }
 
-        public async Task<ICollection<ProductCategoryOrderVM>> GetAllProductCategoriesOrders()
+        public ICollection<ProductCategoryOrderVM> GetAllProductCategoriesOrders()
         {
-            var products = await _context.Products
+            var products = _context.Products
                 .Include(p => p.ProductCategories)
                     .ThenInclude(pc => pc.Category)
                 .Include(p => p.ProductOrders)
@@ -25,9 +25,9 @@ namespace EcommerceApp.Interfaces.ProductCatgeoryOrderRepositories
                 .Select(p => new ProductCategoryOrderVM
                 {
                     Product = p,
-                    Categories = p.ProductCategories.Select(pc => pc.Category).FirstOrDefault(),
+                    Category = p.ProductCategories.Select(pc => pc.Category).FirstOrDefault(),
                     Order = p.ProductOrders.Select(po => po.Order).FirstOrDefault()
-                }).ToListAsync();
+                }).ToList();
 
             return products;
         }

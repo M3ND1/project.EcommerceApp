@@ -13,21 +13,10 @@ namespace EcommerceApp.Controllers
             _repository = repository;
 
         }
-        public async Task<ViewResult> Index()
+        public IActionResult Index()
         {
-            var allProductsCategories = await _repository.GetAllProductCategoriesOrders();
-            //var viewModelList = new List<ProductCategoryOrderVM>();
-            //foreach (var product in allProductsCategories)
-            //{
-            //    var productCategoryViewModel = new ProductCategoryOrderVM();
-            //        productCategoryViewModel.Product = product.Product;
-            //        productCategoryViewModel.Categories = product.Categories;
-            //        productCategoryViewModel.Order = product.Order;
-            //    viewModelList.Add(productCategoryViewModel);
-            //}
-            //ViewData["allProducts"] = viewModelList;
+            var allProductsCategories = _repository.GetAllProductCategoriesOrders();
             return View(allProductsCategories);
-            //bodyconetnt null in index.cshtml riiip
         }
 
     }

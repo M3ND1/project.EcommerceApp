@@ -1,6 +1,9 @@
 ﻿using EcommerceApp.Interfaces.CategoryRepositories;
+using EcommerceApp.Interfaces.ProductCategory;
+using EcommerceApp.Interfaces.ProductCatgeoryOrderRepositories;
 using EcommerceApp.Interfaces.ProductRepositories;
 using EcommerceApp.Models;
+using EcommerceApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using System.Diagnostics;
@@ -10,24 +13,22 @@ namespace EcommerceApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private IProductRepository _productRepository;
-        private ICategoryRepository _categoryRepository;
-        public HomeController(ILogger<HomeController> logger, IProductRepository productRepository, ICategoryRepository categoryRepository)
+        private readonly IProductCategoryRepository _productCategoryRepository;
+        public HomeController(ILogger<HomeController> logger, IProductCategoryRepository productCategoryRepository)
         {
             _logger = logger;
-            _productRepository = productRepository;
-            _categoryRepository = categoryRepository;
+            _productCategoryRepository = productCategoryRepository;
         }
 
         public IActionResult Index()
         {
-            var products = _productRepository.GetAllProducts().ToList();
-            var categories = _categoryRepository.GetAllCategories();
-
-            ViewBag.Products = products;
-            ViewBag.Categories = categories;
-
-            return View();
+            var (categories, products) = _productCategoryRepository.GetAllProductCategories();
+            var model = new ProductCategoryVM
+            {
+                Categories = categories,
+                ProductCategories = products
+            };
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

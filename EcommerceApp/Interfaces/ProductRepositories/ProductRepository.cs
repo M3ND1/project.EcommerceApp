@@ -24,7 +24,7 @@ namespace EcommerceApp.Interfaces.ProductRepositories
             _context.Products.Add(product);
             _context.SaveChanges();
             //relation
-            var productCategory = new ProductCategory
+            var productCategory = new Models.ProductCategory
             {
                 CategoryId = productVM.SelectedCategoryId,
                 ProductId = product.Id

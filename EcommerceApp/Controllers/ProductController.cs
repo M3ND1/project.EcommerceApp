@@ -25,7 +25,6 @@ namespace EcommerceApp.Controllers
         public IActionResult Search([FromForm] string inputValue)
         {
             var data = _productRepository.SearchByName(inputValue);
-            //ViewData["SearchResults"] = data; //pass viewdata to partialview of products
             return PartialView("_ProductSearchResults", data);
         }
         public IActionResult Create()

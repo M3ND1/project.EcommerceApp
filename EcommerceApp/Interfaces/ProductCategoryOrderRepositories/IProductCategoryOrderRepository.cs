@@ -5,6 +5,6 @@ namespace EcommerceApp.Interfaces.ProductCatgeoryOrderRepositories
 {
     public interface IProductCategoryOrderRepository
     {
-        Task<ICollection<ProductCategoryOrderVM>> GetAllProductCategoriesOrders();
+        ICollection<ProductCategoryOrderVM> GetAllProductCategoriesOrders();
     }
 }
