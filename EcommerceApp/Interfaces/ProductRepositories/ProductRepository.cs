@@ -19,7 +19,13 @@ namespace EcommerceApp.Interfaces.ProductRepositories
                 Description = productVM.Description,
                 ImageUrl = productVM.ImageUrl,
                 Price = productVM.Price,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                Color = productVM.Color,
+                Width = productVM.Width,
+                Height = productVM.Height,
+                Length = productVM.Length,
+                Weight = productVM.Weight,
+                Material = productVM.Material
             };
             _context.Products.Add(product);
             _context.SaveChanges();

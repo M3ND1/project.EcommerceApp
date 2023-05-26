@@ -33,6 +33,12 @@ namespace EcommerceApp.Interfaces.ProductCategory
                     Description = pc.Description,
                     ImageUrl = pc.ImageUrl,
                     Price = pc.Price,
+                    Color = pc.Color,
+                    Width = pc.Width,
+                    Height = pc.Height,
+                    Length = pc.Length,
+                    Weight = pc.Weight,
+                    Material = pc.Material,
                     Categories = pc.ProductCategories.Select(pc => pc.Category).ToList() 
                 };
                 productViewModels.Add(productVM);

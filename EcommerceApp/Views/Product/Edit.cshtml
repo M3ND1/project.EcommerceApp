@@ -28,6 +28,30 @@
                 <span class="input-group-text" id="add5">$</span>
                 <input asp-for="Price" aria-describedby="add5" placeholder="@Model.Price" aria-label="@Model.Price" class="form-control" value="@Model.Price" />
             </div>
+            <div class="input-group mb-2">
+                <span class="input-group-text" id="add5=6">Product Color</span>
+                <input asp-for="Color" aria-describedby="add6" placeholder="@Model.Color" aria-label="@Model.Color" class="form-control" />
+            </div>
+            <div class="input-group mb-2">
+                <span class="input-group-text" id="add5=6">Product width</span>
+                <input asp-for="Width" aria-describedby="add6" placeholder="@Model.Width" aria-label="@Model.Width" class="form-control" />
+            </div>
+            <div class="input-group mb-2">
+                <span class="input-group-text" id="add5=6">Product Height</span>
+                <input asp-for="Height" aria-describedby="add6" placeholder="@Model.Height" aria-label="@Model.Height" class="form-control" />
+            </div>
+            <div class="input-group mb-2">
+                <span class="input-group-text" id="add5=6">Product Length</span>
+                <input asp-for="Length" aria-describedby="add6" placeholder="@Model.Length" aria-label="@Model.Length" class="form-control" />
+            </div>
+            <div class="input-group mb-2">
+                <span class="input-group-text" id="add5=6">Product Weight</span>
+                <input asp-for="Weight" aria-describedby="add6" placeholder="@Model.Weight" aria-label="@Model.Weight" class="form-control" />
+            </div>
+            <div class="input-group mb-2">
+                <span class="input-group-text" id="add5=6">Product Material</span>
+                <input asp-for="Material" aria-describedby="add6" placeholder="@Model.Material" aria-label="@Model.Material" class="form-control" />
+            </div>
             <button asp-controller="Product" asp-action="EditProduct" asp-route-id="@Model.Id" class="btn btn-success">Confirm</button>
             <button class="btn btn-outline-secondary" type="submit" asp-action="Index">Go Back</button>
         </form>

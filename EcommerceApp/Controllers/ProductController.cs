@@ -36,7 +36,7 @@ namespace EcommerceApp.Controllers
             return View(productVM);
         }
         [HttpPost]
-        public IActionResult CreateProduct([Bind("Name, Description, ImageUrl,Price,CreatedAt, SelectedCategoryId")] ProductVM productVM)
+        public IActionResult CreateProduct([Bind("Name, Description, ImageUrl,Price,CreatedAt,Color,Width,Height,Depth,Weight,Material,SelectedCategoryId")] ProductVM productVM)
         {
             if(ModelState.IsValid)
             {
@@ -58,6 +58,7 @@ namespace EcommerceApp.Controllers
         }
         public IActionResult Details(int id)
         {
+            //here change to PrroductVM
             var product = _productRepository.GetProductById(id);
             if (product == null)
             {

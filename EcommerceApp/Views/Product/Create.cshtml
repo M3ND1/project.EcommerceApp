@@ -5,34 +5,94 @@
 
 <div class="container">
     <form asp-action="CreateProduct">
-        <div class="form-group">
-            <label asp-for="Name">Name</label>
-            <input asp-for="Name" type="text" class="form-control" placeholder="Enter Your Name" aria-describedby="nameHelp"/>
-            <small id="nameHelp" class="form-text text-muted">Your name will be only needed for Your orders.</small>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label asp-for="Name">Title</label>
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Enter product title" aria-describedby="nameHelp" />
+                    <small id="nameHelp" class="form-text text-muted">Your name will be only needed for Your orders.</small>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description">Description</label>
+                    <textarea asp-for="Description" style="height:124px; max-height:350px;"class="form-control" placeholder="Enter description for your product" rows="3" aria-describedby="descriptionHelp"></textarea>
+                    <small id="descriptionHelp" class="form-text text-muted">Description will show when the product is moderated and added.</small>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageUrl">Image URL</label>
+                    <input asp-for="ImageUrl" type="text" class="form-control" placeholder="Enter product image URL" aria-describedby="imageUrlHelp" />
+                    <small id="imageUrlHelp" class="form-text text-muted">Note that this image cannot contain nudity.</small>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price">Product Price</label>
+                    <input asp-for="Price" type="number" class="form-control" placeholder="Enter product price" aria-describedby="priceHelp" />
+                    <small id="priceHelp" class="form-text text-muted">Type how much the product will cost.</small>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Color">Product Color</label>
+                    <input asp-for="Color" type="text" class="form-control" placeholder="Enter product color" aria-describedby="colorHelp" />
+                    <small id="colorHelp" class="form-text text-muted">Specify the color of the product.</small>
+                </div>
+                
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label asp-for="Width">Width</label>
+                    <div class="input-group">
+                        <input asp-for="Width" type="number" class="form-control" placeholder="Enter product width" aria-describedby="widthHelp" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">cm</span>
+                        </div>
+                    </div>
+                    <small id="widthHelp" class="form-text text-muted">Specify the width of the product.</small>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Height">Height</label>
+                    <div class="input-group">
+                        <input asp-for="Height" type="number" class="form-control" placeholder="Enter product height" aria-describedby="heightHelp" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">cm</span>
+                        </div>
+                    </div>
+                    <small id="heightHelp" class="form-text text-muted">Specify the height of the product.</small>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Length">Length</label>
+                    <div class="input-group">
+                        <input asp-for="Length" type="number" class="form-control" placeholder="Enter product length" aria-describedby="depthHelp" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">cm</span>
+                        </div>
+                    </div>
+                    <small id="depthHelp" class="form-text text-muted">Specify the length of the product.</small>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Weight">Product Weight</label>
+                    <div class="input-group">
+                        <input asp-for="Weight" type="number" class="form-control" placeholder="Enter product weight" aria-describedby="weightHelp" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">kg</span>
+                        </div>
+                    </div>
+                    <small id="weightHelp" class="form-text text-muted">Specify the weight of the product.</small>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Material">Product Material</label>
+                    <input asp-for="Material" type="text" class="form-control" placeholder="Enter product material" aria-describedby="materialHelp" />
+                    <small id="materialHelp" class="form-text text-muted">Specify the material of the product.</small>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SelectedCategoryId" class="control-label">Category</label>
+                    <select asp-for="SelectedCategoryId" class="form-control">
+                        <option value="">Select Category</option>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Description">Description</label>
-            <input asp-for="Description" type="text" class="form-control" placeholder="Enter description for your product" aria-describedby="nameHelp" />
-            <small id="nameHelp" class="form-text text-muted">Description will show when product will be moderated and added</small>
-        </div>
-        <div class="form-group">
-            <label asp-for="ImageUrl">Image URL</label>
-            <input asp-for="ImageUrl" type="text" class="form-control" placeholder="Enter product image url" aria-describedby="nameHelp" />
-            <small id="nameHelp" class="form-text text-muted">Note that this image cannot contain nudity</small>
-        </div>
-        <div class="form-group">
-            <label asp-for="Price">Product Price</label>
-            <input asp-for="Price" type="number" class="form-control" placeholder="Enter product price" aria-describedby="nameHelp" />
-            <small id="nameHelp" class="form-text text-muted">Type how much money will your product cost</small>
-        </div>
-        <div class="form-group">
-            <label asp-for="SelectedCategoryId" class="control-label"></label>
-            @Html.DropDownListFor(model => model.SelectedCategoryId, 
-                                    new SelectList(Model.Categories, "Id", "Name"), //items displayed in dropdown list
-                                    "Select Category", 
-                                    new {@class = "form-control"})
-        </div>
-        <input class="btn btn-outline-success" type="submit" asp-action="CreateProduct"/>
-        <input class="btn btn-outline-secondary" asp-action="Index" name="Go back"/>
+        <button type="submit" class="btn btn-outline-success mt-2 mr-2">Create Product</button>
+        <a href="@Url.Action("Index")" class="btn btn-outline-secondary mt-2">Go back</a>
     </form>
 </div>

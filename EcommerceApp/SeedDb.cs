@@ -2,6 +2,7 @@
 using EcommerceApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace EcommerceApp
 {
@@ -47,27 +48,45 @@ namespace EcommerceApp
                     new Product() { //1
                         Name = "Iphone 8 Plus 64GB",
                         Description = "Smartphone with all the features you need",
-                        ImageUrl="https://files.refurbed.com/ii/apple-iphone-8-plus-1639478234.jpg",
-                        Price= 320.5m,
+                        ImageUrl = "https://files.refurbed.com/ii/apple-iphone-8-plus-1639478234.jpg",
+                        Price = 320.5m,
                         CreatedAt = DateTime.UtcNow - TimeSpan.FromDays(7) - TimeSpan.FromHours(2),
+                        Color = "Black",
+                        Length = 2,
+                        Width = 5,
+                        Height = 8,
+                        Weight = 0.5,
+                        Material = "Plastic",
                         ProductCategories = new List<ProductCategory>(),
-                        ProductOrders = new List<ProductOrder>(),
+                        ProductOrders = new List<ProductOrder>()
                     },
                     new Product() {
                         Name = "Washing Machine",
                         Description = "A powerful washing machine that cleans your clothes perfectly",
-                        ImageUrl="https://media.croma.com/image/upload/v1670588931/Croma%20Assets/Large%20Appliances/Washers%20and%20Dryers/Images/240205_0_obspqa.png",
-                        Price= 550.5m,
+                        ImageUrl = "https://media.croma.com/image/upload/v1670588931/Croma%20Assets/Large%20Appliances/Washers%20and%20Dryers/Images/240205_0_obspqa.png",
+                        Price = 550.5m,
                         CreatedAt = DateTime.UtcNow - TimeSpan.FromDays(4) - TimeSpan.FromHours(13),
+                        Color = "White",
+                        Length = 60,
+                        Width = 60,
+                        Height = 85,
+                        Weight = 50,
+                        Material = "Metal",
                         ProductCategories = new List<ProductCategory>(),
                         ProductOrders = new List<ProductOrder>()
                     },
                     new Product() {
                         Name = "Pug Squishy Toy",
                         Description = "Squishy fidget sensory stress pug dog toys for adults, teens and kids",
-                        ImageUrl="https://ae01.alicdn.com/kf/H6b22da5b7e944e3bac5e1b544662ffa7V.jpg",
-                        Price= 5,
+                        ImageUrl = "https://ae01.alicdn.com/kf/H6b22da5b7e944e3bac5e1b544662ffa7V.jpg",
+                        Price = 5,
                         CreatedAt = DateTime.UtcNow - TimeSpan.FromDays(8) - TimeSpan.FromHours(2),
+                        Color = "Grey", 
+                        Length = 10,
+                        Width = 10,
+                        Height = 10,
+                        Weight = 0.1,
+                        Material = "Silicone",
                         ProductCategories = new List<ProductCategory>(),
                         ProductOrders = new List<ProductOrder>()
                     },
@@ -75,8 +94,14 @@ namespace EcommerceApp
                         Name = "T-Shirt",
                         Description = "A comfortable and stylish t-shirt",
                         ImageUrl = "https://demo.cs-cart.pl/images/detailed/1/t-4.jpg",
-                        Price= 10,
+                        Price = 10,
                         CreatedAt = DateTime.UtcNow,
+                        Color = "Black",
+                        Length = 2,
+                        Width = 40,
+                        Height = 60,
+                        Weight = 0.3,
+                        Material = "Cotton",
                         ProductCategories = new List<ProductCategory>(),
                         ProductOrders = new List<ProductOrder>()
                     },
@@ -86,6 +111,12 @@ namespace EcommerceApp
                         ImageUrl = "https://prod-api.mediaexpert.pl/api/images/gallery/thumbnails/images/24/2408146/Konsola-SONY-PlayStation-5-front.jpg",
                         Price= 499.99M,
                         CreatedAt = DateTime.UtcNow - TimeSpan.FromDays(1) - TimeSpan.FromHours(4),
+                        Color = "Black/White",
+                        Length = 60,
+                        Width = 60,
+                        Height = 20,
+                        Weight = 4.7,
+                        Material = "Plastic",
                         ProductCategories = new List<ProductCategory>(),
                         ProductOrders = new List<ProductOrder>()
                     },                    
@@ -95,6 +126,12 @@ namespace EcommerceApp
                         ImageUrl = "https://cdn.shopify.com/s/files/1/0559/7881/9741/products/AirFryrer_Front_RT__CMYK_22_1800x1800.jpg?v=1631122755",
                         Price= 129.99M,
                         CreatedAt = DateTime.UtcNow - TimeSpan.FromDays(3) - TimeSpan.FromHours(7),
+                        Color = "Black",
+                        Length = 20,
+                        Width = 17,
+                        Height = 80,
+                        Weight = 10.7,
+                        Material = "Metal",
                         ProductCategories = new List<ProductCategory>(),
                         ProductOrders = new List<ProductOrder>()
                     },
@@ -104,6 +141,12 @@ namespace EcommerceApp
                         ImageUrl = "https://www.sportsdirect.com/images/imgzoom/21/21209118_xxl.jpg",
                         Price= 90M,
                         CreatedAt = DateTime.UtcNow - TimeSpan.FromDays(2) - TimeSpan.FromHours(12),
+                        Color = "Dark Blue",
+                        Length = 17, //TO DELETE LATER BECAUSE IT NOW CANNOT TAKE NULLS
+                        Width = 5,
+                        Height = 2,
+                        Weight = 0.7,
+                        Material = "Syntetic",
                         ProductCategories = new List<ProductCategory>(),
                         ProductOrders = new List<ProductOrder>()
                     },
@@ -113,6 +156,12 @@ namespace EcommerceApp
                         ImageUrl="https://www.mediaexpert.pl/media/cache/resolve/gallery/images/33/3349146/Laptop-DELL-XPS-15-9510-15.6-OLED-i7-11800H-16GB-SSD-1TB-GeForce-3050-Ti-Windows-11-Professional-skos-prawy.jpg",
                         Price= 1699m,
                         CreatedAt = DateTime.UtcNow - TimeSpan.FromDays(14) - TimeSpan.FromHours(9),
+                        Color = "Dark Grey",
+                        Length = 13,
+                        Width = 20,
+                        Height = 10,
+                        Weight = 3.7,
+                        Material = "Plastic",
                         ProductCategories = new List<ProductCategory>(),
                         ProductOrders = new List<ProductOrder>()
                     },
@@ -122,6 +171,12 @@ namespace EcommerceApp
                         ImageUrl="https://image.ceneostatic.pl/data/products/111261978/i-nintendo-switch-oled-white.jpg",
                         Price= 299.99m,
                         CreatedAt = DateTime.UtcNow - TimeSpan.FromDays(17) - TimeSpan.FromHours(2),
+                        Color = "White",
+                        Length = 2,
+                        Width = 10,
+                        Height = 5,
+                        Weight = 3.5,
+                        Material = "Plastic",
                         ProductCategories = new List<ProductCategory>(),
                         ProductOrders = new List<ProductOrder>()
                     }
