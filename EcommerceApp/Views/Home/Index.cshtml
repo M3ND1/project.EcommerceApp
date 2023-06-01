@@ -1,55 +1,65 @@
-﻿@*To sort product via category name and print cateogires*@
-@*Add to categories imageUrl and print all names of categories with images in home site*@
+﻿@*Add more categories and scale to be more fancy*@
+@*After jumbotron and smth add small divs with 3/4 products that are assigned to this category*@
+@*add newest product added in small divs (dont mention categories)*@
+@*add antoher row (dont let categories be sticky) and add something about company + footer*@
 @model EcommerceApp.ViewModels.ProductCategoryVM
 @{
     var categories = Model.Categories;
     var productCategory = Model.ProductCategories;
 }
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <div class="jumbotron align-content-center text-center text-black mb-3" style="background-image: url(https://media.discordapp.net/attachments/955938238965641246/1106990754980704369/sale_copy.jpg?width=1440&height=504);">
-            <h1 class="display-4">Witaj na EcommerceApp!</h1>
-            <p class="lead">Już teraz wybierz odpowiednie dla siebie produkty!</p>
-            <hr class="my-4">
-            <p>Sprawdź kto wykonał ten projekt poniżej </p>
-            <p class="lead">
-                <a class="btn btn-secondary btn-lg" href="#" role="button">Portfolio</a>
-            </p>
+        <div class="col-12 col-md-12">
+            <div class="jumbotron align-content-center text-center text-black mb-3" style="background-image: url(https://media.discordapp.net/attachments/955938238965641246/1106990754980704369/sale_copy.jpg?width=1440&height=504);">
+                <h1 class="display-4">Witaj na EcommerceApp!</h1>
+                <p class="lead">Już teraz wybierz odpowiednie dla siebie produkty!</p>
+                <hr class="my-4">
+                <p>Sprawdź kto wykonał ten projekt poniżej </p>
+                <p class="lead">
+                    <a class="btn btn-secondary btn-lg mb-3" href="#" role="button">Portfolio</a>
+                </p>
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-12 col-md-2">
-            <div class="sticky-top" style="top: 20px;">
-                <h3>Categories</h3>
-                <ul class="list-group mt-3">
-                    @foreach (var item in categories)
-                    {
-                        <li class="list-group-item">
-                            <a asp-controller="Category" asp-action="SearchCategoryProduct" style="text-decoration:none; color: #212529;">@item.Name</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-        <div class="col-12 col-md-10">
+        <div class="col-12 col-md-12">
             @*Banners carousel*@
-            <div class="container-fluid bg-dark">
+            <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
-                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" style="max-height: 300px;">
-                            <div class="carousel-inner" style="height:300px;">
-                                <div class="carousel-item active align-items-center mt-3 text-center">
-                                    <img style="object-fit: cover; height: 100%;" src="https://images.pexels.com/photos/1001990/pexels-photo-1001990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="First slide">
+                    <div class="col-12 col-md-2">
+                        <h6 class="p-2 border-top border-bottom mt-3">Categories</h6>
+                        <div class="list-group list-group-light mb-2">
+                            @foreach (var item in categories)
+                            {
+                                <a class="list-group-item border-top border-bottom d-flex align-items-center" asp-controller="Category" asp-action="SearchCategoryProduct" style="text-decoration:none; color: #212529;">
+                                    <div class="d-flex align-items-center">
+                                        <img src="path/to/your/image" class="img-fluid mr-2" style="width: 24px; height: 24px;">
+                                    </div>
+                                    <div class="flex-grow-1">@item.Name</div>
+                                    <div>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-8 d-flex flex-column align-items-center justify-content-center">
+                        <div id="carouselExampleSlidesOnly" class="carousel slide mt-3 mb-3" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active text-center">
+                                    <img class="d-block w-100" src="https://images.pexels.com/photos/1001990/pexels-photo-1001990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="First slide">
                                 </div>
-                                <div class="carousel-item align-items-center mt-3 text-center">
-                                    <img style="object-fit: cover; height: 100%;" src="https://images.pexels.com/photos/205416/pexels-photo-205416.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Second slide">
+                                <div class="carousel-item text-center">
+                                    <img class="d-block w-100" src="https://images.pexels.com/photos/205416/pexels-photo-205416.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Second slide">
                                 </div>
-                                <div class="carousel-item align-items-center mt-3 text-center">
-                                    <img style="object-fit: cover; height: 100%;" src="https://images.pexels.com/photos/5511130/pexels-photo-5511130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Third slide">
+                                <div class="carousel-item text-center">
+                                    <img class="d-block w-100" src="https://images.pexels.com/photos/5511130/pexels-photo-5511130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Third slide">
                                 </div>
                             </div>
                             <a class="carousel-control-prev" href="#carouselExampleSlidesOnly" role="button" data-slide="prev">
@@ -62,97 +72,196 @@
                             </a>
                         </div>
                     </div>
-                </div>
-                @**@
-                <div class="row bg-warning mt-3 mb-3">
-                    <div class="col-12 col-md-3 justify-content-between bg-primary mt-3 mb-3">
-                        <div class="card border-dark mt-2 mb-2">
-                            <div class="card-header border-dark border-bottom bg-secondary text-white">
-                                @foreach (var category in productCategory[0].Categories)
-                                {
-                                    <a class="text-white pd-3" style="text-decoration:none;" asp-controller="Category" asp-action="Details" asp-route-id="@category.Id">Kategoria: @category.Name</a>
-                                }
+                    <div class="col-12 col-md-2 d-flex flex-column justify-content-between">
+                        @if (User.IsInRole("User"))
+                        {
+                            <div class="row">
+                                <p class="text-uppercase font-weight-bold align-self-start">Your Account</p>
                             </div>
-                            <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[0].Id">
-                                <img class="card-img-top align-items-center" src="@productCategory[0].ImageUrl" alt="@productCategory[0].Description" style="max-width: 200px; max-height: 200px;" />
-                            </a>
-                            <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[0].Id" style="text-decoration:none;">
-                                <div class="card-body border-dark border-top bg-light">
-                                    <h6 class="card-title">@productCategory[0].Name</h6>
-                                    <h7 class="card-subtitle mb-2 text-muted">@productCategory[0].Description</h7>
-                                    <p class="card-text">@productCategory[0].Price.ToString("C")</p>
+                            <div class="row">
+                                <ul class="list-group">
+                                    <li class="list-group-item">Settings</li>
+                                    <li class="list-group-item">Your Orders</li>
+                                    <li class="list-group-item">Your Reviews</li>
+                                    <li class="list-group-item">Account Name Change</li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row mt-3">
+                                <p class="text-uppercase font-weight-bold align-self-start">Join Us to Get Benefits</p>
+                                <p> Lorem ipsum dolor</p>
+                                <p> sit amet, consectetur</p>
+                                <p> adipiscing elit. Nulla</p>
+                                <p> ornare pellentesque pharetra</p>
+                            </div>
+                            <div class="row">
+                                <div class="d-flex flex-column align-items-center">
+                                    <button class="btn btn-primary rounded-pill mb-2">Sign Up for Free</button>
+                                    <button class="btn btn-secondary rounded-pill mb-2">Log In</button>
                                 </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-9 d-flex align-items-center justify-content-center bg-primary mt-3 mb-3 mr-3">
-                        <div class="row bg-danger align-items-center justify-content-center" style="width: 100%;">
-                            @for (int i = 1; i < 5; i++)
-                            {
-                                <div class="col-6 col-md-4 col-lg-3 mb-4 align-items-center text-center">
-                                    <div class="card border border-dark mt-3">
-                                        <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
-                                            <img style="max-width: 124px; max-height: 124px;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
-                                        </a>
-                                        <div class="card-body bg-secondary text-light" style="text-decoration: none;">
-                                            <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
-                                            <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
-                <div class="row">
-                    <div class="col-12 bg-secondary">
-                        <h2 class="text-light"> Our clients reviews</h2>
-                        <div class="card border border-dark mt-3 mb-3" style="width:75%;">
-                            <div class="card-body">
-                                <div class="media">
-                                    <div class="media-body">
-                                        <div class="row">
-                                            <div class="col-12 col-md-10">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="col">
-                                                        <i class="fas fa-user fa-lg mr-2"></i>
-                                                    </div>                                                    
-                                                    <div class="col">
-                                                        <h6 class="ml-2 mt-0">John Doe</h6>
-                                                    </div>
-                                                </div>
-                                                <p class="card-text mb-0">This product is amazing! I highly recommend it. The quality is superb and the customer service is top-notch.</p>
-                                                <p class="card-text mb-0">Rating: </p>
-                                                <small class="text-muted">User Verified or Not</small>
-                                            </div>
-                                            <div class="col-12 col-md-2 align-items-center">
-                                                <img class="img-fluid rounded-circle" style="max-width: 100px; max-height: 100px;" src="@productCategory[1].ImageUrl" alt="User Avatar" />
-                                            </div>
-                                        </div>
+                @**@
+            <div class="row bg-white mt-3 mb-3">
+                <div class="col-12 col-md-3 justify-content-between mt-3 mb-3">
+                    <div class="card border-dark mt-2 mb-2">
+                        <div class="card-header border-dark border-bottom bg-secondary text-white"> Popular now </div>
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[0].Id">
+                            <img class="card-img-top img-fluid" src="@productCategory[0].ImageUrl" alt="@productCategory[0].Description" style="max-width: 200px; max-height: 200px;" />
+                        </a>
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[0].Id" style="text-decoration:none;">
+                            <div class="card-body border-dark border-top">
+                                <h6 class="card-title">@productCategory[0].Name</h6>
+                                <h7 class="card-subtitle mb-2 text-muted">@productCategory[0].Description</h7>
+                                <p class="card-text">@productCategory[0].Price.ToString("C")</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-9 d-flex align-items-center justify-content-center">
+                    <div class="row align-items-center justify-content-center" style="background-color: #F1F1F1;">
+                        <div class="col-12 text-center">
+                            <h4 class="text-dark p-2 mb-3">Users selected also</h4>
+                        </div>
+                        @for (int i = 1; i < 5; i++)
+                        {
+                            <div class="col-6 col-md-4 col-lg-3 mb-4 align-items-center text-center">
+                                <div class="card border border-dark mt-3" style="height: 100%;">
+                                    <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
+                                        <img style="max-width: 154px; max-height: 200px;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+                                    </a>
+                                    <div class="card-body text-dark" style="text-decoration: none;">
+                                        <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
+                                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
-
+            </div>
+            </div>
+    </div>
+    <div class="row mt-1 mb-1">
+        <div class="col-12 border-bottom align-items-left text-left">
+            <h5 class="p-2 mb-1">Other Products</h5>
         </div>
+        @for (int i = 0; i < 6; i++)
+        {
+            <div class="col-4 col-md-4 col-lg-2 mb-2 align-items-center text-center">
+                <div class="card mt-1">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
+                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+                    </a>
+                    <div class="card-body text-dark text-left" style="text-decoration: none;">
+                        <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
+                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
+                        <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
+                            @productCategory[i].Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+        <div class="row mb-1">
+        @for (int i = 0; i < 6; i++)
+        {
+            <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
+                <div class="card mt-3">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
+                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+                    </a>
+                    <div class="card-body text-dark text-left" style="text-decoration: none;">
+                        <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
+                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
+                        <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
+                            @productCategory[i].Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+        <div class="row mb-1">
+        @for (int i = 0; i < 6; i++)
+        {
+            <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
+                <div class="card mt-3">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
+                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+                    </a>
+                    <div class="card-body text-dark text-left" style="text-decoration: none;">
+                        <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
+                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
+                        <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
+                            @productCategory[i].Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+        <div class="row mb-1">
+        @for (int i = 0; i < 6; i++)
+        {
+            <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
+                <div class="card mt-3">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
+                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+                    </a>
+                    <div class="card-body text-dark text-left" style="text-decoration: none;">
+                        <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
+                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
+                        <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
+                            @productCategory[i].Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row mb-1">
+        @for (int i = 0; i < 6; i++)
+        {
+            <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
+                <div class="card mt-3">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
+                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+                    </a>
+                    <div class="card-body text-dark text-left" style="text-decoration: none;">
+                        <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
+                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
+                        <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
+                            @productCategory[i].Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
-<script>
-    const liItems = document.querySelectorAll('li');
 
-    liItems.forEach(item => {
+
+<script>
+    const listItems = document.querySelectorAll('.list-group-item');
+
+    listItems.forEach(item => {
         item.addEventListener('mouseover', () => {
             item.classList.add('active');
-            item.lastChild.style.color = '#000';
+            item.style.color = '#000';
         });
         item.addEventListener('mouseout', () => {
             item.classList.remove('active');
-            item.lastChild.style.color = '#212529';
+            item.style.color = '#212529';
         });
     });
+
 
     $(document).ready(function () {
         $('.carousel').carousel();
