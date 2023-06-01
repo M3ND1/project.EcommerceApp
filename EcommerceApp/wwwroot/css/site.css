@@ -58,5 +58,24 @@ body {
     transition: all .1s ease-in-out;
 }
 
+.carousel-item 
+{
+    max-height:350px;
+    width:100%;
+    overflow: hidden;
+}
+.list-group-item {
+    height:38px;
+}
+.custom-navbar {
+    height: 30px; /* Adjust the height as desired */
+}
 
-
+.custom-navbar .navbar-brand img {
+    max-height: 100%;
+    object-fit: contain;
+}
+.navbar-brand img {
+    height:60px;
+    width:60px;
+}
