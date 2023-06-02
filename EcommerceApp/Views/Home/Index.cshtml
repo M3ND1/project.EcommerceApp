@@ -1,8 +1,4 @@
-﻿@*Add more categories and scale to be more fancy*@
-@*After jumbotron and smth add small divs with 3/4 products that are assigned to this category*@
-@*add newest product added in small divs (dont mention categories)*@
-@*add antoher row (dont let categories be sticky) and add something about company + footer*@
-@model EcommerceApp.ViewModels.ProductCategoryVM
+﻿@model EcommerceApp.ViewModels.ProductCategoryVM
 @{
     var categories = Model.Categories;
     var productCategory = Model.ProductCategories;
@@ -149,9 +145,10 @@
     </div>
     <div class="row mt-1 mb-1">
         <div class="col-12 border-bottom align-items-left text-left">
-            <h5 class="p-2 mb-1">Other Products</h5>
+            <h5 class="p-2">Other Products</h5>
         </div>
-        @for (int i = 0; i < 6; i++)
+        <div class="mb-3"></div>
+        @for (int i = 8; i > 2; i--)
         {
             <div class="col-4 col-md-4 col-lg-2 mb-2 align-items-center text-center">
                 <div class="card mt-1">
@@ -169,7 +166,26 @@
             </div>
         }
     </div>
-        <div class="row mb-1">
+        <div class="row">
+        @for (int i = 3; i < 9; i++)
+        {
+            <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
+                <div class="card mt-3">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
+                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+                    </a>
+                    <div class="card-body text-dark text-left" style="text-decoration: none;">
+                        <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
+                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
+                        <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
+                            @productCategory[i].Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+        <div class="row">
         @for (int i = 0; i < 6; i++)
         {
             <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
@@ -188,8 +204,8 @@
             </div>
         }
     </div>
-        <div class="row mb-1">
-        @for (int i = 0; i < 6; i++)
+        <div class="row">
+        @for (int i = 2; i < 8; i++)
         {
             <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
                 <div class="card mt-3">
@@ -207,26 +223,7 @@
             </div>
         }
     </div>
-        <div class="row mb-1">
-        @for (int i = 0; i < 6; i++)
-        {
-            <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
-                <div class="card mt-3">
-                    <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
-                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
-                    </a>
-                    <div class="card-body text-dark text-left" style="text-decoration: none;">
-                        <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
-                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
-                        <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
-                            @productCategory[i].Description
-                        </p>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-    <div class="row mb-1">
+    <div class="row">
         @for (int i = 0; i < 6; i++)
         {
             <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
