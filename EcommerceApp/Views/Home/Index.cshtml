@@ -44,7 +44,6 @@
                             }
                         </div>
                     </div>
-
                     <div class="col-12 col-md-8 d-flex flex-column align-items-center justify-content-center">
                         <div id="carouselExampleSlidesOnly" class="carousel slide mt-3 mb-3" data-ride="carousel">
                             <div class="carousel-inner">
@@ -104,11 +103,12 @@
             </div>
                 @**@
             <div class="row bg-white mt-3 mb-3">
+                @*Big Card*@
                 <div class="col-12 col-md-3 justify-content-between mt-3 mb-3">
                     <div class="card border-dark mt-2 mb-2">
-                        <div class="card-header border-dark border-bottom bg-secondary text-white"> Popular now </div>
+                        <div class="card-header border-dark border-bottom bg-secondary text-white text-center"> User's favourite </div>
                         <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[0].Id">
-                            <img class="card-img-top img-fluid" src="@productCategory[0].ImageUrl" alt="@productCategory[0].Description" style="max-width: 200px; max-height: 200px;" />
+                            <img class="card-img-top img-fluid" src="@productCategory[0].ImageUrl" alt="@productCategory[0].Description" style="height:30vh;"/>
                         </a>
                         <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[0].Id" style="text-decoration:none;">
                             <div class="card-body border-dark border-top">
@@ -119,17 +119,19 @@
                         </a>
                     </div>
                 </div>
+                @*Small cards *@
                 <div class="col-12 col-md-9 d-flex align-items-center justify-content-center">
                     <div class="row align-items-center justify-content-center" style="background-color: #F1F1F1;">
                         <div class="col-12 text-center">
                             <h4 class="text-dark p-2 mb-3">Users selected also</h4>
                         </div>
+
                         @for (int i = 1; i < 5; i++)
                         {
-                            <div class="col-6 col-md-4 col-lg-3 mb-4 align-items-center text-center">
-                                <div class="card border border-dark mt-3" style="height: 100%;">
+                            <div class="col-6 col-md-6 col-lg-3 mb-4">
+                                <div class="card border border-dark mt-3">
                                     <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
-                                        <img style="max-width: 154px; max-height: 200px;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+                                        <img class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
                                     </a>
                                     <div class="card-body text-dark" style="text-decoration: none;">
                                         <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
@@ -140,20 +142,24 @@
                         }
                     </div>
                 </div>
+
+
             </div>
-            </div>
+        </div>
     </div>
-    <div class="row mt-1 mb-1">
+    <div class="row mt-1">
         <div class="col-12 border-bottom align-items-left text-left">
             <h5 class="p-2">Other Products</h5>
         </div>
-        <div class="mb-3"></div>
+        <div class="mb-1"></div>
         @for (int i = 8; i > 2; i--)
         {
             <div class="col-4 col-md-4 col-lg-2 mb-2 align-items-center text-center">
                 <div class="card mt-1">
                     <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
-                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+                        <div class="image-container">
+                            <img class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+                        </div>
                     </a>
                     <div class="card-body text-dark text-left" style="text-decoration: none;">
                         <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
@@ -223,7 +229,7 @@
             </div>
         }
     </div>
-    <div class="row">
+        <div class="row">
         @for (int i = 0; i < 6; i++)
         {
             <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
