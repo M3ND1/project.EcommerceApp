@@ -107,14 +107,14 @@
                 <div class="col-12 col-md-3 justify-content-between mt-3 mb-3">
                     <div class="card border-dark mt-2 mb-2">
                         <div class="card-header border-dark border-bottom bg-secondary text-white text-center"> User's favourite </div>
-                        <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[0].Id">
-                            <img class="card-img-top img-fluid" src="@productCategory[0].ImageUrl" alt="@productCategory[0].Description" style="height:30vh;"/>
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[productCategory.Count-1].Id">
+                            <img class="card-img-top img-fluid" src="@productCategory[productCategory.Count-1].ImageUrl" alt="@productCategory[productCategory.Count-1].Description" style="height:30vh;" />
                         </a>
-                        <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[0].Id" style="text-decoration:none;">
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[productCategory.Count-1].Id" style="text-decoration:none;">
                             <div class="card-body border-dark border-top">
-                                <h6 class="card-title">@productCategory[0].Name</h6>
-                                <h7 class="card-subtitle mb-2 text-muted">@productCategory[0].Description</h7>
-                                <p class="card-text">@productCategory[0].Price.ToString("C")</p>
+                                <h6 class="card-title">@productCategory[productCategory.Count-1].Name</h6>
+                                <h7 class="card-subtitle mb-2 text-muted">@productCategory[productCategory.Count-1].Description</h7>
+                                <p class="card-text">@productCategory[productCategory.Count-1].Price.ToString("C")</p>
                             </div>
                         </a>
                     </div>
@@ -125,13 +125,12 @@
                         <div class="col-12 text-center">
                             <h4 class="text-dark p-2 mb-3">Users selected also</h4>
                         </div>
-
-                        @for (int i = 1; i < 5; i++)
+                        @for (int i = productCategory.Count - 2; i >= productCategory.Count - 5; i--)
                         {
                             <div class="col-6 col-md-6 col-lg-3 mb-4">
                                 <div class="card border border-dark mt-3">
                                     <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
-                                        <img class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+                                        <img class="card-img-top img-fluid mt-1" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
                                     </a>
                                     <div class="card-body text-dark" style="text-decoration: none;">
                                         <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
@@ -152,20 +151,18 @@
             <h5 class="p-2">Other Products</h5>
         </div>
         <div class="mb-1"></div>
-        @for (int i = 8; i > 2; i--)
+        @foreach(var product in productCategory.Take(6))
         {
             <div class="col-4 col-md-4 col-lg-2 mb-2 align-items-center text-center">
                 <div class="card mt-1">
-                    <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
-                        <div class="image-container">
-                            <img class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
-                        </div>
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">
+                        <img class="card-img-top img-fluid mt-1" src="@product.ImageUrl" alt="@product.Description" />
                     </a>
                     <div class="card-body text-dark text-left" style="text-decoration: none;">
-                        <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
-                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
+                        <small class="card-subtitle">@product.Price.ToString("C")</small>
+                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@product.Name</h6>
                         <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
-                            @productCategory[i].Description
+                            @product.Description
                         </p>
                     </div>
                 </div>
@@ -173,18 +170,18 @@
         }
     </div>
         <div class="row">
-        @for (int i = 3; i < 9; i++)
+        @foreach (var product in productCategory.Skip(6).Take(6))
         {
-            <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
-                <div class="card mt-3">
-                    <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
-                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+            <div class="col-4 col-md-4 col-lg-2 mb-2 align-items-center text-center">
+                <div class="card mt-1">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">
+                        <img class="card-img-top img-fluid mt-1" src="@product.ImageUrl" alt="@product.Description" />
                     </a>
                     <div class="card-body text-dark text-left" style="text-decoration: none;">
-                        <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
-                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
+                        <small class="card-subtitle">@product.Price.ToString("C")</small>
+                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@product.Name</h6>
                         <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
-                            @productCategory[i].Description
+                            @product.Description
                         </p>
                     </div>
                 </div>
@@ -192,50 +189,50 @@
         }
     </div>
         <div class="row">
+        @foreach (var product in productCategory.Skip(12).Take(6))
+        {
+            <div class="col-4 col-md-4 col-lg-2 mb-2 align-items-center text-center">
+                <div class="card mt-1">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">
+                        <img class="card-img-top img-fluid mt-1" src="@product.ImageUrl" alt="@product.Description" />
+                    </a>
+                    <div class="card-body text-dark text-left" style="text-decoration: none;">
+                        <small class="card-subtitle">@product.Price.ToString("C")</small>
+                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@product.Name</h6>
+                        <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
+                            @product.Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+        <div class="row">
+        @foreach (var product in productCategory.Skip(18).Take(6))
+        {
+            <div class="col-4 col-md-4 col-lg-2 mb-2 align-items-center text-center">
+                <div class="card mt-1">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">
+                        <img class="card-img-top img-fluid mt-1" src="@product.ImageUrl" alt="@product.Description" />
+                    </a>
+                    <div class="card-body text-dark text-left" style="text-decoration: none;">
+                        <small class="card-subtitle">@product.Price.ToString("C")</small>
+                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@product.Name</h6>
+                        <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
+                            @product.Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+        <div class="row"> @*Add more products because now I will have index out of range*@
         @for (int i = 0; i < 6; i++)
         {
             <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
                 <div class="card mt-3">
                     <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
-                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
-                    </a>
-                    <div class="card-body text-dark text-left" style="text-decoration: none;">
-                        <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
-                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
-                        <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
-                            @productCategory[i].Description
-                        </p>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-        <div class="row">
-        @for (int i = 2; i < 8; i++)
-        {
-            <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
-                <div class="card mt-3">
-                    <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
-                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
-                    </a>
-                    <div class="card-body text-dark text-left" style="text-decoration: none;">
-                        <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
-                        <h6 class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;">@productCategory[i].Name</h6>
-                        <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">
-                            @productCategory[i].Description
-                        </p>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-        <div class="row">
-        @for (int i = 0; i < 6; i++)
-        {
-            <div class="col-4 col-md-4 col-lg-2 mb-4 align-items-center text-center">
-                <div class="card mt-3">
-                    <a asp-controller="Product" asp-action="Details" asp-route-id="@productCategory[i].Id">
-                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top img-fluid" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
+                        <img class="card-img-top img-fluid mt-1" src="@productCategory[i].ImageUrl" alt="@productCategory[i].Description" />
                     </a>
                     <div class="card-body text-dark text-left" style="text-decoration: none;">
                         <small class="card-subtitle">@productCategory[i].Price.ToString("C")</small>
