@@ -4,6 +4,7 @@ using EcommerceApp.Interfaces.ProductCatgeoryOrderRepositories;
 using EcommerceApp.Interfaces.ProductRepositories;
 using EcommerceApp.Models;
 using EcommerceApp.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using System.Diagnostics;
@@ -22,6 +23,7 @@ namespace EcommerceApp.Controllers
 
         public IActionResult Index()
         {
+            
             var (categories, products) = _productCategoryRepository.GetAllProductCategories();
             var model = new ProductCategoryVM
             {

@@ -1,6 +1,7 @@
 ﻿using EcommerceApp.Data;
 using EcommerceApp.Interfaces.CategoryRepositories;
 using EcommerceApp.Interfaces.ProductRepositories;
+using EcommerceApp.Interfaces.ProductCategory;
 using EcommerceApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -11,10 +12,12 @@ namespace EcommerceApp.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
-        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository)
+        private readonly IProductCategoryRepository _productCategoryRepository;
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, IProductCategoryRepository productCategoryRepository)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
+            _productCategoryRepository = productCategoryRepository;
         }
         public IActionResult Index()
         {
@@ -58,13 +61,9 @@ namespace EcommerceApp.Controllers
         }
         public IActionResult Details(int id)
         {
-            //here change to PrroductVM
-            var product = _productRepository.GetProductById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
+            var productCategories = _productCategoryRepository.GetSimilarProductsById(id);
+
+            return View(productCategories);
         }
         [HttpPost, ActionName("EditProduct")]
         public IActionResult EditProduct(int id, [Bind("Name, Description, ImageUrl,Price")] ProductVM productVM)

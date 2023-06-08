@@ -1,6 +1,7 @@
 ﻿using EcommerceApp.Data;
 using EcommerceApp.Models;
 using EcommerceApp.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceApp.Interfaces.ProductRepositories
 {
@@ -61,6 +62,18 @@ namespace EcommerceApp.Interfaces.ProductRepositories
         {
             var product = _context.Products.FirstOrDefault(p => p.Id == id);
             return product!;
+        }
+
+        public Product GetProductDetailsById(int id)
+        {
+            var product = _context.Products
+                .Include(p => p.ProductCategories)
+                    .ThenInclude(pc => pc.Category)
+                .Include(p => p.Reviews)
+                    .ThenInclude(p => p.User)
+                .FirstOrDefault(p => p.Id == id);
+
+            return product;
         }
 
         public IEnumerable<Product> SearchByName(string name)

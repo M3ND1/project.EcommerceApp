@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-2 d-flex flex-column justify-content-between">
-                    @if (User.IsInRole("User"))
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <div class="row">
                             <p class="text-uppercase font-weight-bold align-self-start mt-3">Your Account</p>

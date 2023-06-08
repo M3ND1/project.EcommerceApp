@@ -11,5 +11,6 @@ namespace EcommerceApp.Interfaces.ProductRepositories
         public bool UpdateProduct(int id, ProductVM productVM);
         public bool DeleteProduct(int id);
         public IEnumerable<Product> SearchByName(string name);
+        public Product GetProductDetailsById(int id);
     }
 }
