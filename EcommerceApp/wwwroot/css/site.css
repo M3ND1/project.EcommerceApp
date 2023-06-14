@@ -48,20 +48,20 @@ body {
     border-right: 1px solid #ffffff;
 }
 
-    .navbar-nav.nav-fill .nav-item:first-child {
-        border-left: none;
-    }
+.navbar-nav.nav-fill .nav-item:first-child {
+    border-left: none;
+}
 
-    .navbar-nav.nav-fill .nav-item:last-child {
-        border-right: none;
-    }
+.navbar-nav.nav-fill .nav-item:last-child {
+    border-right: none;
+}
 
-    .navbar-nav.nav-fill .nav-item:hover {
-        background-color: #0069d9;
-        cursor: pointer;
-        transform: translateY(-2px) scale(1.15);
-        transition: transform 0.2s ease-in-out;
-    }
+.navbar-nav.nav-fill .nav-item:hover {
+    background-color: #0069d9;
+    cursor: pointer;
+    transform: translateY(-2px) scale(1.15);
+    transition: transform 0.2s ease-in-out;
+}
 
 .nav-item {
     align-items: center;
@@ -72,28 +72,24 @@ body {
     height: 35px;
     font-size: 0.9rem; /* Adjust the font size as needed */
 }
-
 /* logo */
 .navbar-brand img {
     height: 60px;
     width: 60px;
 }
-
 /* Black navbar */
 .custom-navbar .navbar-brand img {
     max-height: 100%;
     object-fit: contain;
 }
-
-
 /*Carousel Row*/
 .list-group-item {
     height: 38px;
 }
 
-    .list-group-item:hover {
-        cursor: pointer;
-    }
+.list-group-item:hover {
+    cursor: pointer;
+}
 
 #categoryText:hover {
     color: white;
@@ -118,7 +114,13 @@ body {
     color: gray;
 }
 
-    .text_nested:hover {
-        text-decoration: underline;
-        cursor: pointer;
-    }
+.text_nested:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+/*Product Details*/
+#similarProduct:hover {
+    cursor: pointer;
+    transform: translateY(-2px) scale(1.15);
+    transition: transform 0.2s ease-in-out;
+}

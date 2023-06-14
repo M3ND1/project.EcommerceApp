@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EcommerceApp.ViewModels
 {
-    public class ProductVM
+    public class ProductVM //later leave only Name, Image, and realtions
     {
         public int Id { get; set; }
         public string Name { get; set; }

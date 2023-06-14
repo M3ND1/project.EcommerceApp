@@ -1,70 +1,94 @@
-﻿@model EcommerceApp.Models.Product 
+﻿@model EcommerceApp.ViewModels.ProductDetailsVM; 
+@*Get products and categories assigned to them  *@
+@*Get viewbag reviews assigned to product*@
 @{
     ViewData["Title"] = "Product Details";
 }
+@{
+    var product = Model.Product;
+    var similarProducts = Model.SimilarProducts;
+    var random = new Random();
+    var randomPhotos = similarProducts.OrderBy(x => random.Next()).Take(6).ToList();
+}
+
 
 
 <div class="container text-center">
-    <div class="row">
-        <p class="text-sm" style="font-family:Courier New;float:left;">Here will be categories assigned to product</p>
+    <div class="row justify-content-center">
+        @*Later add click on to have Categories details (all products to categories)*@
+        <div class="text-center mb-2">
+        @foreach (var category in product.ProductCategories)
+        {
+                <a style="text-decoration:none;color:black;" href="@Url.Action("Details","Category",new {id = category.Id})">
+                    <p class="text-sm" style="font-family:Courier New;display:inline;">
+                        -> @category.Category.Name
+                    </p>
+                </a>
+        }
+        </div>
+
     </div>
+
     <div class="row">
         @*First column*@
         <div class="col-md-4 rounded-circle">
             <div id="zoomOnHover" class="card text-center">
                 <div class="sticky-top">
-                    <img style="max-width:300px; max-height:300px;justify-content:center" src="@Model.ImageUrl" class="card-img-top" alt="@Model.Name">
+                    <img class="img-fluid" src="@product.ImageUrl" style="max-height:100%; max-width:100%;" alt="@product.Name">
                 </div>
             </div>
         </div>
         @*Second Column*@
         <div class="col-md-4 offset-md-1 border rounded ">
             <div class="row">
-                <h3>@Model.Name</h3>
+                <h3>@product.Name</h3>
             </div>
             <div class="row border-top">
                 <p><b>Ilosc w magazynie:</b><a>TODO</a></p>
-                @*TODO Quantity for product*@
-                @*If user select more than We have == problem*@
+                <!-- TODO Quantity for product -->
+                <!-- If user selects more than we have, it could be a problem -->
             </div>
             <div class="row border-top text-left">
-                <p><b>Opis: </b><a>@Model.Description</a></p>
-                <p><b>Marka: </b><a>TODO</a></p>
-                <p><b>Przedział wiekowy: </b> <a>TODO</a></p>
-                <p><b>Wymiary produktu: </b> <a>TODO</a></p>
-                <p><b>Waga produktu:: </b> <a>TODO</a></p>
-                <p><b>Kolor: </b> <a>TODO</a></p>
+                <p><b>Description: </b><a class="text-muted text-decoration-none">@product.Description</a></p>
+                <p><b>Weight: </b> <a class="text-muted text-decoration-none">@product.Weight kg</a> </p>
+                <p><b>Color: </b> <a class="text-muted text-decoration-none">@product.Color</a> </p>
             </div>
-            <b>TODO BUTTON LATER below</b>
-            <button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target="#more-info">More Info</button>
+            <button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target="#more-info" id="btnInfo">More Info</button>
             <div id="more-info" class="collapse">
-                <h5>Informacje o produkcie</h5>
-                Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
-                Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
-                Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
-                Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
-                Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
-                Lorem ipsum here because here will be information about this product<h5>Informacje o produkcie</h5>
-                Lorem ipsum here because here will be information about this product
+                <h5>Dimensions</h5>
+                <p><a class="text-muted text-decoration-none">@product.Width cm x @product.Height cm x @product.Length cm</a> </p>
+                <h5>Material</h5>
+                <p><a class="text-muted text-decoration-none">@product.Material</a> </p>
+                <h5>Material</h5>
+                <p><a class="text-muted text-decoration-none">@product.Material</a> </p>
+                <h5>Material</h5>
+                <p><a class="text-muted text-decoration-none">@product.Material</a> </p>
+                <h5>Material</h5>
+                <p><a class="text-muted text-decoration-none">@product.Material</a> </p>
+                <h5>Material</h5>
+                <p><a class="text-muted text-decoration-none">@product.Material</a> </p>
+                <h5>Material</h5>
+                <p><a class="text-muted text-decoration-none">@product.Material</a> </p>
             </div>
         </div>
         @*Third Column*@
         <div class="col-md-2 offset-md-1 border rounded ml-auto">
             <div class="row">
-                <h5 class="m-1" style="float:left;">@Model.Price $</h5>
+                <h5 class="m-1" style="float:left;">@product.Price $</h5>
             </div>
             <div class="row">
                 <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Quantity
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @for (int i = 1; i <= 10; i++)
                         {
-                            <a class="dropdown-item" href="#"> @i</a>
+                            <a class="dropdown-item" href="#">@i</a>
                         }
                     </div>
                 </div>
+
             </div>
             <div class="row">
                 <div class="column">
@@ -81,45 +105,71 @@
     </div>
     @*Similar Products*@
     <div class="row border-top align-items-center mt-3">
-        <h3>Here we will have  similar products</h3>
-        <h5>To the product that we have </h5>
-        <h7>To category that he is assigned to </h7>
-        <div class="align-items-start">
-            @for(int i=0;i<9;i++)
-            {
-                <img style="max-height:100px;max-width:100px;" class="card-img mr-3" src="https://images.pexels.com/photos/3184306/pexels-photo-3184306.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
-            }
+        <h4>Similar products</h4>
+        <div class="col">
+            <div class="row">
+                @foreach (var item in randomPhotos)
+                {
+                    <div class="col-sm-6 col-md-4 col-lg-2">
+                        <a href="@Url.Action("Details", "Product", new {id = item.Id})" style="text-decoration:none;">
+                            <div class="card" id="similarProduct">
+                                <img class="card-img-top img-fluid" src="@item.ImageUrl">
+                                <div class="card-footer">
+                                    <small class="text-muted" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 154px;">@item.Name</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </div>
+
+
     @*Reviews*@
     <div class="row border-top mt-3 border rounded">
         <div class="col-md-3">
-            <h5>Already bought this product? Click to add review!</h5>
+            <h5>Already bought this product? Click to add a review!</h5>
             <h6 class="border-right">Only you know what to tell others about this product!</h6>
-            <form asp-controller="Review" asp-action="Create" asp-route-id="@Model.Id">
-                <button type="submit" class="btn btn-outline-primary mb-2">Sumbit Review</button>
+            <form asp-controller="Review" asp-action="Create" asp-route-id="@product.Id">
+                <button type="submit" class="btn btn-outline-primary mb-2">Submit Review</button>
             </form>
         </div>
         <div class="col-9 col-md-9">
-            <div class="row">
-                <div class="col-12">
-                    Here -> count avrg review && how much stars here below or up xD
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-2 col-md-2 border-bottom border-right"> @*svg icon? to every user*@
-                    <b> User 1 : his rating</b>
-                </div>
-                <div class="col-10 col-md-10 border-bottom">
-                    His review
-                </div>
-                <div class="col-2 col-md-2">
-                    <b> User 2 : his rating</b>
-                </div>
-                <div class="col-10 col-md-10">
-                    His review
-                </div>
-            </div>
+            @if (product.Reviews != null)
+            {
+                @foreach (var review in product.Reviews)
+                {
+                    <div class="row mt-2">
+                        <div class="col-2 col-md-2 border-bottom border-right">
+                            @*svg icon? to every user*@
+                            <b>User: @review.User.FirstName</b>
+                            <p>Rating: @review.Rating</p>
+                        </div>
+                        <div class="col-10 col-md-10 border-bottom text-black">
+                            <div class="row">
+                                <div class="col-12 col-md-2">
+                                    Review text:
+                                </div>
+                                <div class="col-12 col-md-10 text-muted">
+                                    '@review.Text'
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
+
 </div>
+
+<script>
+    $('#btnInfo').click(function () {
+        $('.collapse').toggle();
+    });
+    $('#quantityBtn').click(function () {
+        $('.collapse').toggle();
+    });
+    
+</script>
