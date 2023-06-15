@@ -28,19 +28,31 @@
                 <div class="col-12 col-md-2">
                     <h6 class="p-2 border-top border-bottom mt-1">Categories</h6>
                     <div class="list-group list-group-light">
-                        @for (int i = 0; i < categories.Count; i += 2)
+                        @for (int i = 0; i < 7; i++)
                         {
                             <a href="@Url.Action("SearchCategoryProduct", "Category")" class="list-group-item d-flex align-items-center text-decoration-none text-dark">
                                 <div class="mr-2">
-                                    <img src="path/to/your/image" class="img-fluid" style="width: 24px; height: 24px;">
+                                    <img src="@categories[i].ImgUrl" class="img-fluid" style="width: 30px; height: 30px;">
                                 </div>
-                                <div class="flex-grow-1" id="categoryText">@categories[i].Name</div>
+                                <div class="flex-grow-1" id="categoryText" style="margin-left: 10px;">@categories[i].Name</div>
                                 <div>
                                     <i class="fas fa-chevron-right fa-xs"></i>
                                 </div>
                             </a>
                         }
+                        <div class="dropright">
+                            <a class="list-group-item d-flex align-items-center text-decoration-none text-dark" id="categoryDropdown" role="button">
+                                <div class="flex-grow-1" id="categoryText" style="margin-left: 10px;">More Categories</div>
+                                <div>
+                                    <i class="fas fa-chevron-right fa-xs"></i>
+                                </div>
+                            </a>
+                        </div>
                     </div>
+
+
+
+
                 </div>
                 <div class="col-12 col-md-8 d-flex flex-column align-items-center justify-content-center">
                     <div id="carouselExampleSlidesOnly" class="carousel slide mt-3 mb-3" data-ride="carousel">
@@ -262,4 +274,14 @@
     $(document).ready(function () {
         $('.carousel').carousel();
     });
+    //categories dropright
+    document.getElementById("categoryDropdown").addEventListener("click", function () {
+        var dropdownMenu = document.querySelector(".dropdown-menu");
+        if (dropdownMenu.style.display === "none") {
+            dropdownMenu.style.display = "block";
+        } else {
+            dropdownMenu.style.display = "none";
+        }
+    });
+
 </script>

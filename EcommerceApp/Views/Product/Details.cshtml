@@ -92,10 +92,24 @@
             </div>
             <div class="row">
                 <div class="column">
-                    <div class="d-inline-flex flex-column mb-3">
-                        <button type="submit" class="btn btn-warning m-1">Dodaj do koszyka</button>
-                        <button type="submit" class="btn btn-outline-primary m-1">Kup teraz</button>
-                    </div>
+                    @if(!User.Identity.IsAuthenticated)
+                    {
+                        <div class="d-inline-flex flex-column mb-3">
+                            <form asp-area="Identity" asp-page="/Account/Login">
+                                <button type="submit" class="btn btn-warning m-1">Dodaj do koszyka</button>
+                                <button type="submit" class="btn btn-outline-primary m-1">Kup teraz</button>
+                            </form>
+                        </div>
+                    } else
+                    {
+                        <div class="d-inline-flex flex-column mb-3">
+                            <form>
+                                <button type="submit" class="btn btn-warning m-1">Dodaj do koszyka</button>
+                                <button type="submit" class="btn btn-outline-primary m-1">Kup teraz</button>
+                            </form>
+                        </div>
+                    }
+
                 </div>
             </div>
             <div class="row">

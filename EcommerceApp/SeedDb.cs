@@ -30,20 +30,20 @@ namespace EcommerceApp
             {
                 var categories = new List<Category>()
                 {
-                    new Category { Name = "Electronics", ProductCategories = new List<ProductCategory>() }, //Id = 1
-                    new Category { Name = "Home Appliances", ProductCategories = new List<ProductCategory>() },
-                    new Category { Name = "Clothing", ProductCategories = new List<ProductCategory>() },//3
-                    new Category { Name = "Automotive", ProductCategories = new List<ProductCategory>() },//4
-                    new Category { Name = "Health", ProductCategories = new List<ProductCategory>() },
-                    new Category { Name = "Movies", ProductCategories = new List<ProductCategory>() }, // Id = 6
-                    new Category { Name = "Books", ProductCategories = new List<ProductCategory>() },
-                    new Category { Name = "Sports", ProductCategories = new List<ProductCategory>() },
-                    new Category { Name = "Gaming", ProductCategories = new List<ProductCategory>() }, //Id = 9
-                    new Category { Name = "Music", ProductCategories = new List<ProductCategory>() }, //Id = 10
-                    new Category { Name = "Accessories", ProductCategories = new List<ProductCategory>() }, //Id = 11
-                    new Category { Name = "Bedroom", ProductCategories = new List<ProductCategory>() }, //Id = 12
-                    new Category { Name = "Kitchen", ProductCategories = new List<ProductCategory>() }, //Id = 13
-                    new Category { Name = "Peripherals", ProductCategories = new List<ProductCategory>() } //Id = 13
+                    new Category { Name = "Electronics", ImgUrl = "https://images.pexels.com/photos/205926/pexels-photo-205926.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"  ,ProductCategories = new List<ProductCategory>() }, //Id = 1
+                    new Category { Name = "Home Appliances", ImgUrl = "https://gielda.furgonetka.pl/images/landingcategories/agd.jpg", ProductCategories = new List<ProductCategory>() },
+                    new Category { Name = "Clothing", ImgUrl = "https://mcbcdn.com/single_picture/11435/138/medium/performance_herre.png", ProductCategories = new List<ProductCategory>() },//3
+                    new Category { Name = "Automotive", ImgUrl="https://thumbs.dreamstime.com/b/car-oil-filter-motor-oil-canisters-isolated-white-backgro-car-oil-filter-motor-oil-canisters-isolated-white-125687785.jpg" ,ProductCategories = new List<ProductCategory>() },//4
+                    new Category { Name = "Health", ImgUrl="https://yimages360.s3.amazonaws.com/products/2021/03/605c7bb8bd26b/1x.jpg", ProductCategories = new List<ProductCategory>() },
+                    new Category { Name = "Movies", ImgUrl="https://e7.pngegg.com/pngimages/59/893/png-clipart-movie-reel-illustration-film-clapperboard-cinematic-techniques-clapperboard-film-film-elements-monochrome-photographic-film.png",ProductCategories = new List<ProductCategory>() }, // Id = 6
+                    new Category { Name = "Books", ImgUrl="https://pyxis.nymag.com/v1/imgs/1cc/b68/6613f73d72328f430c6e55e3de5d3acccf-24-parenting-books-1.1x.rsquare.w1400.jpg", ProductCategories = new List<ProductCategory>() },
+                    new Category { Name = "Sports", ImgUrl="https://m.media-amazon.com/images/I/71sixGzCQzL.jpg", ProductCategories = new List<ProductCategory>() },
+                    new Category { Name = "Gaming", ImgUrl="https://img.redro.pl/naklejki/vector-game-pad-on-white-background-700-190255175.jpg",ProductCategories = new List<ProductCategory>() }, //Id = 9
+                    new Category { Name = "Music",ImgUrl="https://www.bgelectronics.eu/image/cache/20/20359-1000x1000.png", ProductCategories = new List<ProductCategory>() }, //Id = 10
+                    new Category { Name = "Accessories",ImgUrl="https://previews.123rf.com/images/ollinka/ollinka1511/ollinka151100193/49071183-fashion-accessories-on-white-background.jpg", ProductCategories = new List<ProductCategory>() }, //Id = 11
+                    new Category { Name = "Bedroom",ImgUrl="https://atlas-content-cdn.pixelsquid.com/stock-images/old-victorian-natural-bed-queen-Mx5B5eA-600.jpg", ProductCategories = new List<ProductCategory>() }, //Id = 12
+                    new Category { Name = "Kitchen", ImgUrl="https://images.pexels.com/photos/269257/pexels-photo-269257.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", ProductCategories = new List<ProductCategory>() }, //Id = 13
+                    new Category { Name = "Peripherals", ImgUrl="https://static.vecteezy.com/system/resources/previews/006/757/685/original/white-micro-usb-cables-on-white-background-connectors-and-sockets-for-pc-and-mobile-devices-computer-peripherals-connector-or-smartphone-recharge-supply-vector.jpg", ProductCategories = new List<ProductCategory>() } //Id = 13
                 };
                 _context.Categories.AddRange(categories);
                 await _context.SaveChangesAsync();
@@ -533,70 +533,70 @@ namespace EcommerceApp
                 }
             }
             //Orders
-            if (!_context.Orders.Any())
-            {
-                try
-                {
-                    var user_relation = await _context.AppUsers.SingleOrDefaultAsync(u => u.Email == "modroczek@gmail.com");
-                    var orders = new List<Order>
-            {
-                new Order
-                {
-                    UserId = user_relation.Id,
-                    OrderAt = DateTime.Now.AddDays(-7),
-                    Price = 100,
-                    ShippingAddress = "123 Main St, Anytown USA",
-                    IsShipped = true,
-                    ProductOrders = new List<ProductOrder>(),
-                },
-                new Order
-                {
-                    UserId = user_relation.Id,
-                    OrderAt = DateTime.Now.AddDays(-5),
-                    Price = 50,
-                    ShippingAddress = "456 Oak Ave, Anytown USA",
-                    IsShipped = false,
-                    ProductOrders = new List<ProductOrder>(),
-                },
-                new Order
-                {
-                    UserId = user_relation.Id,
-                    OrderAt = DateTime.Now.AddDays(-5),
-                    Price = 35,
-                    ShippingAddress = "123 Elm St, Anytown USA",
-                    IsShipped = true,
-                    ProductOrders = new List<ProductOrder>(),
-                },
-                new Order
-                {
-                    UserId = user_relation.Id,
-                    OrderAt = DateTime.Now.AddDays(-2),
-                    Price = 75,
-                    ShippingAddress = "789 Maple Ave, Anytown USA",
-                    IsShipped = false,
-                    ProductOrders = new List<ProductOrder>(),
-                }
-            };
-                    await _context.Orders.AddRangeAsync(orders);
-                    await _context.SaveChangesAsync();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}");
-                }
-            }
-            if (!_context.ProductOrders.Any())
-            {
-                var productOrders = new List<ProductOrder>()
-                {
-                    new ProductOrder { Id = 1, Quantity = 2, ProductId = 3, OrderId = 1 },
-                    new ProductOrder { Id = 2, Quantity = 1, ProductId = 4, OrderId = 2 },
-                    new ProductOrder { Id = 3, Quantity = 4, ProductId = 2, OrderId = 3 },
-                    new ProductOrder { Id = 4, Quantity = 3, ProductId = 1, OrderId = 4 },
-                };
-                await _context.ProductOrders.AddRangeAsync(productOrders);
-                await _context.SaveChangesAsync();
-            }
+            //if (!_context.Orders.Any())
+            //{
+            //    try
+            //    {
+            //        var user_relation = await _context.AppUsers.SingleOrDefaultAsync(u => u.Email == "modroczek@gmail.com");
+            //        var orders = new List<Order>
+            //{
+            //    new Order
+            //    {
+            //        UserId = user_relation.Id,
+            //        OrderAt = DateTime.Now.AddDays(-7),
+            //        Price = 100,
+            //        ShippingAddress = "123 Main St, Anytown USA",
+            //        IsShipped = true,
+            //        ProductOrders = new List<ProductOrder>(),
+            //    },
+            //    new Order
+            //    {
+            //        UserId = user_relation.Id,
+            //        OrderAt = DateTime.Now.AddDays(-5),
+            //        Price = 50,
+            //        ShippingAddress = "456 Oak Ave, Anytown USA",
+            //        IsShipped = false,
+            //        ProductOrders = new List<ProductOrder>(),
+            //    },
+            //    new Order
+            //    {
+            //        UserId = user_relation.Id,
+            //        OrderAt = DateTime.Now.AddDays(-5),
+            //        Price = 35,
+            //        ShippingAddress = "123 Elm St, Anytown USA",
+            //        IsShipped = true,
+            //        ProductOrders = new List<ProductOrder>(),
+            //    },
+            //    new Order
+            //    {
+            //        UserId = user_relation.Id,
+            //        OrderAt = DateTime.Now.AddDays(-2),
+            //        Price = 75,
+            //        ShippingAddress = "789 Maple Ave, Anytown USA",
+            //        IsShipped = false,
+            //        ProductOrders = new List<ProductOrder>(),
+            //    }
+            //};
+            //        await _context.Orders.AddRangeAsync(orders);
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Console.WriteLine($"Error: {ex.Message}");
+            //    }
+            //}
+            //if (!_context.ProductOrders.Any())
+            //{
+            //    var productOrders = new List<ProductOrder>()
+            //    {
+            //        new ProductOrder { Id = 1, Quantity = 2, ProductId = 3, OrderId = 1 },
+            //        new ProductOrder { Id = 2, Quantity = 1, ProductId = 4, OrderId = 2 },
+            //        new ProductOrder { Id = 3, Quantity = 4, ProductId = 2, OrderId = 3 },
+            //        new ProductOrder { Id = 4, Quantity = 3, ProductId = 1, OrderId = 4 },
+            //    };
+            //    await _context.ProductOrders.AddRangeAsync(productOrders);
+            //    await _context.SaveChangesAsync();
+            //}
             //TODO: reviews seed??
         }
     }
