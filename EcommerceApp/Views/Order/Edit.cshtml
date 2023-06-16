@@ -1,0 +1,40 @@
+﻿@model Order
+
+<h1>Edit Order</h1>
+
+@using (Html.BeginForm("Edit", "Order", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserId)
+        @Html.TextBoxFor(model => model.UserId, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.OrderDate)
+        @Html.TextBoxFor(model => model.OrderDate, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TotalAmount)
+        @Html.TextBoxFor(model => model.TotalAmount, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Status)
+        @Html.TextBoxFor(model => model.Status, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ShippingAddress)
+        @Html.TextBoxFor(model => model.ShippingAddress, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PaymentMethod)
+        @Html.TextBoxFor(model => model.PaymentMethod, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+}

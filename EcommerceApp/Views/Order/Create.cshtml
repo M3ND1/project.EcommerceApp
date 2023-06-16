@@ -1,0 +1,31 @@
+﻿@model Order
+@{
+    int quantity = (int)ViewBag.Quantity;
+    int productId = (int)ViewBag.ProductId;
+}
+<div class="row">
+    @*First column*@
+    <div class="col-md-4 rounded-circle">
+        <div id="zoomOnHover" class="card text-center">
+            <div class="sticky-top">
+                <img class="img-fluid" src="#" style="max-height:100%; max-width:100%;" alt="#">
+            </div>
+        </div>
+    </div>
+    @*Second Column*@
+    <div class="col-md-7 offset-md-1 border rounded ">
+        <div class="row">
+            @*<h3>@product.Name</h3>*@
+        </div>
+        <div class="row border-top">
+            <p><b>Podsumowanie zamówienia: @productId</b></p>
+        </div>
+        <div class="row border-top justify-content-start align-items-start text-left">
+            <p><b>Cena produktu: </b><a class="text-muted text-decoration-none"></a></p>
+            <p><b>Ilość</b> <a class="text-muted text-decoration-none"></a> </p>
+            <form asp-action="CreateOrder">
+                <input asp-for="UserId" value="" hidden/>
+            </form>
+        </div>
+    </div>
+</div>

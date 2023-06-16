@@ -1,0 +1,38 @@
+﻿@model Order
+
+<h1>Order Details</h1>
+
+<div>
+    <h4>Order ID: @Model.Id</h4>
+    <p>User ID: @Model.UserId</p>
+    <p>Order Date: @Model.OrderDate</p>
+    <p>Total Amount: @Model.TotalAmount</p>
+    <p>Status: @Model.Status</p>
+    <p>Shipping Address: @Model.ShippingAddress</p>
+    <p>Payment Method: @Model.PaymentMethod</p>
+</div>
+
+<div>
+    <h4>Product Orders:</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var productOrder in Model.ProductOrders)
+            {
+                <tr>
+                    <td>@productOrder.Product.Name</td>
+                    <td>@productOrder.Quantity</td>
+                    <td>@productOrder.UnitPrice</td>
+                    <td>@productOrder.Subtotal</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

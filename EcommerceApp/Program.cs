@@ -5,6 +5,7 @@ using EcommerceApp.Interfaces.ProductCategory;
 using EcommerceApp.Interfaces.ProductCatgeoryOrderRepositories;
 using EcommerceApp.Interfaces.ProductRepositories;
 using EcommerceApp.Interfaces.ReviewRepositories;
+using EcommerceApp.Interfaces.OrderRepositories;
 using EcommerceApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 //Dependency Injection
-builder.Services.AddScoped<IProductCategoryOrderRepository, ProductCategoryOrderRepository>(); //for user
-builder.Services.AddScoped<IProductRepository, ProductRepository>(); //TODO: admin panel in future
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); // =||=
-builder.Services.AddScoped<IReviewRepository, ReviewRepository>(); // =||=
-builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>(); // =||=
+builder.Services.AddScoped<IProductCategoryOrderRepository, ProductCategoryOrderRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>(); 
 
 //DbContexts
 builder.Services.AddDbContext<AppDbContext>(options =>
