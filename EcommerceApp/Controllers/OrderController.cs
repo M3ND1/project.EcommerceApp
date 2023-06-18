@@ -1,4 +1,6 @@
 ﻿using EcommerceApp.Interfaces.OrderRepositories;
+using EcommerceApp.Interfaces.ProductCatgeoryOrderRepositories;
+using EcommerceApp.Interfaces.ProductRepositories;
 using EcommerceApp.Migrations;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,9 +9,11 @@ namespace EcommerceApp.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
-        public OrderController(IOrderRepository orderRepository)
+        private readonly IProductRepository _productRepository;
+        public OrderController(IOrderRepository orderRepository, IProductRepository productRepository)
         {
             _orderRepository = orderRepository;
+            _productRepository = productRepository;
         }
         public IActionResult Index()
         {
@@ -18,8 +22,9 @@ namespace EcommerceApp.Controllers
         }
         public IActionResult Create(int quantity, int productId) 
         {
+            var product = _productRepository.GetProductById(productId);
             ViewBag.Quantity = quantity;
-            ViewBag.ProductId = productId;
+            ViewBag.Product = product;
             return View();
         }
         public IActionResult Details(int id) 

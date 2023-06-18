@@ -1,31 +1,148 @@
 ﻿@model Order
 @{
     int quantity = (int)ViewBag.Quantity;
-    int productId = (int)ViewBag.ProductId;
+    Product product = ViewBag.Product;
 }
 <div class="row">
-    @*First column*@
-    <div class="col-md-4 rounded-circle">
-        <div id="zoomOnHover" class="card text-center">
-            <div class="sticky-top">
-                <img class="img-fluid" src="#" style="max-height:100%; max-width:100%;" alt="#">
+    <!-- First column -->
+    <div class="col-12 col-md-4 border rounded mt-2">
+        <div class="row border-bottom">
+            <div class="col">
+                <h4>Dane odbiorcy do przesyłki</h4>
+            </div>
+        </div>
+        <form asp-action="CreateOrder">
+            <div class="form-group mt-3">
+                <label asp-for="UserName">Imie i nazwisko</label>
+                <input type="text" class="form-control" asp-for="UserName" />
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="ShippingAddress">Adres dostawy</label>
+                <input type="text" class="form-control" asp-for="ShippingAddress" />
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="PostalCode">Kod pocztowy i miasto</label>
+                <input type="text" class="form-control" asp-for="PostalCode" />
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="PhoneNumber">Numer telefonnu</label>
+                <input type="text" class="form-control" asp-for="PhoneNumber" />
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="PaymentMethod">Metoda płatności</label>
+                <input type="hidden" id="paymentMethod" name="PaymentMethod" value="" />
+                <div class="d-flex flex-column">
+                    <button type="submit" class="btn btn-primary mb-2" name="PaymentMethod" value="paypal">PayPal</button>
+                    <button type="submit" class="btn btn-success mb-2" name="PaymentMethod" value="credit_card">Karta kredytowa</button>
+                    <button type="submit" class="btn btn-info" name="PaymentMethod" value="bank_transfer">Przelew bankowy</button>
+                </div>
+            </div>
+            <input type="hidden" asp-for="UserId" asp-value="@User.Identity.Name" />
+            <input type="hidden" asp-for="Status" value="Pending..." />
+        </form>
+
+        <div class="row mt-3">
+            <div class="col">
+                <h3 class="border-bottom">Sposób dostawy: TODO</h3>
+                <div id="map" style="height:400px; width:100%;"></div>
+
+                <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+                <script>
+                    // Tworzenie mapy
+                    var map = L.map('map').setView([52.2297, 21.0122], 13); // Ustawienie początkowego widoku mapy
+
+                    // Dodanie warstwy mapy
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+                        maxZoom: 18,
+                    }).addTo(map);
+
+                    // Pobieranie danych paczkomatów z API Paczkomatu
+                    var apiUrl = 'https://api.paczkomaty.pl/v1/pickup-points?latitude=52.2297&longitude=21.0122'; // Przykładowe parametry
+                    fetch(apiUrl)
+                        .then(function (response) {
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            // Wyrenderowanie znaczników paczkomatów na mapie
+                            data.pickupPoints.forEach(function (pickupPoint) {
+                                var marker = L.marker([pickupPoint.latitude, pickupPoint.longitude]).addTo(map);
+                                marker.bindPopup('<b>' + pickupPoint.name + '</b><br/>' + pickupPoint.address.full);
+                            });
+                        })
+                        .catch(function (error) {
+                            console.log('Wystąpił błąd:', error);
+                        });
+                </script>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <p>Wpisz swój kupon:</p>
+                <textarea class="form-control"></textarea>
             </div>
         </div>
     </div>
-    @*Second Column*@
-    <div class="col-md-7 offset-md-1 border rounded ">
-        <div class="row">
-            @*<h3>@product.Name</h3>*@
-        </div>
-        <div class="row border-top">
-            <p><b>Podsumowanie zamówienia: @productId</b></p>
-        </div>
-        <div class="row border-top justify-content-start align-items-start text-left">
-            <p><b>Cena produktu: </b><a class="text-muted text-decoration-none"></a></p>
-            <p><b>Ilość</b> <a class="text-muted text-decoration-none"></a> </p>
-            <form asp-action="CreateOrder">
-                <input asp-for="UserId" value="" hidden/>
-            </form>
+    <!-- Second Column -->
+    <div class="col-6 offset-md-1 col-md-2 rounded-circle mt-2">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                Podsumowanie produktu
+            </div>
+            <img class="card-img-top img-thumbnail" src="@product.ImageUrl" alt="@product.Name">
+            <div class="card-body">
+                <h5 class="card-title">@product.Name</h5>
+                <p class="card-text">Lorem ipsum</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Cena: </b>@product.Price</li>
+                <li class="list-group-item"><b>Kolor: </b>@product.Color</li>
+                <li class="list-group-item"><b>Wymiary: </b>@product.Length x @product.Height x @product.Width</li>
+                <li class="list-group-item"><b>Waga: </b>@product.Weight</li>
+            </ul>
+            <div class="card-body">
+                <button class="button btn-warning">Strona Główna</button>
+            </div>
         </div>
     </div>
+    <!-- Third Column -->
+    <div class="col-6 col-md-4 offset-md-1 mt-2">
+        <div class="row border-bottom text-left mb-3">
+            <h5>Podsumowanie</h5>
+        </div>
+        <div class="row border-bottom mb-3">
+            <div class="col">
+                <div class="row">
+                    <span class="font-weight-bold">Wartość produktów</span>
+                </div>
+                <div class="row">
+                    <span class="font-weight-bold">Dostawa</span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    @product.Price zł
+                </div>
+                <div class="row">
+                    9.99 zł
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <h4><span class="font-weight-bold">Razem: </span>@(product.Price + 9.99M)</h4>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <button class="btn btn-primary btn-block">Zapłać teraz</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <small class="text-muted">W następnym kroku zostaniesz przekierowany na stronę bankową, by zapłacić za swoje zakupy.</small>
+            </div>
+        </div>
+    </div>
+
 </div>
