@@ -15,23 +15,23 @@ namespace EcommerceApp.Controllers
             _userManager = userManager;
 
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var data = _reviewRepository.GetAllReviews();
+            var data = await _reviewRepository.GetAllReviewsAsync();
             return View(data);
         }
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var review = _reviewRepository.SearchById(id);
+            var review = await _reviewRepository.SearchByIdAsync(id);
             if(review != null)
             {
                 return View(review);
             }
             return BadRequest(); //in future TODO: end of internet
         }
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var review = _reviewRepository.SearchById(id);
+            var review = await _reviewRepository.SearchByIdAsync(id);
             if (review != null)
             {
                 return View(review);
@@ -39,7 +39,7 @@ namespace EcommerceApp.Controllers
             return BadRequest(); //in future TODO: end of internet
         }
 
-        public IActionResult Create(int Id)
+        public async Task<IActionResult> Create(int Id)
         {
             //get userId
             //string? userId = User.Identity.Name;
@@ -58,21 +58,22 @@ namespace EcommerceApp.Controllers
         }
         [HttpPost]
         [ActionName("CreateReview")]
-        public IActionResult Create([Bind("Id,UserId,Text,Rating,CreatedDate,ProductId")] Review review)
+        public async Task<IActionResult> Create([Bind("Id,UserId,Text,Rating,CreatedDate,ProductId")] Review review,int productId)
         {
             if(ModelState.IsValid)
             {
-                _reviewRepository.CreateReview(review);
-                return RedirectToAction(nameof(Index));
+                await _reviewRepository.CreateReviewAsync(review);
+                return RedirectToAction("Details", "Product", new { id = productId });
+                //product Details id 
             }
             else
             {
                 return BadRequest();
             }
         }
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var review = _reviewRepository.SearchById(id);
+            var review = await _reviewRepository.SearchByIdAsync(id);
             if (review != null)
             {
                 return View(review);
@@ -80,9 +81,9 @@ namespace EcommerceApp.Controllers
             return BadRequest(); //in future TODO: end of internet
         }
         [HttpPost]
-        public IActionResult DeleteReview(int id)
+        public async Task<IActionResult> DeleteReview(int id)
         {
-            if(_reviewRepository.DeleteReview(id))
+            if(await _reviewRepository.DeleteReviewAsync(id))
             {
                 TempData["SuccessMessage"] = "Review deleted successfully";
             }

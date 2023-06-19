@@ -17,13 +17,13 @@ namespace EcommerceApp.Interfaces.ProductCategory
             _productRepository = productRepository;
         }
 
-        public (List<Category> categories, List<ProductVM> products) GetAllProductCategories() //change name for this method later
+        public async Task<(List<Category> categories, List<ProductVM> products)> GetAllProductCategoriesAsync() //change name for this method later
         {
-            var categories = _context.Categories.ToList();
-            var productsCategory = _context.Products
+            var categories = await _context.Categories.ToListAsync();
+            var productsCategory = await _context.Products
                 .Include(p => p.ProductCategories)
                 .ThenInclude(pc => pc.Category)
-                .ToList();
+                .ToListAsync();
 
             List<ProductVM> productViewModels = new();
             foreach (var pc in productsCategory)
@@ -48,17 +48,17 @@ namespace EcommerceApp.Interfaces.ProductCategory
             return (categories, productViewModels);
         }
 
-        public List<ProductVM> GetProductByCategoryId(int categoryId)
+        public async Task<List<ProductVM>> GetProductByCategoryIdAsync(int categoryId)
         {
             throw new NotImplementedException();
         }
 
-        public List<ProductVM> GetProductCategories()
+        public async Task<List<ProductVM>> GetProductCategoriesAsync()
         {
-            var productsCategory = _context.Products
+            var productsCategory = await _context.Products
             .Include(p => p.ProductCategories)
             .ThenInclude(pc => pc.Category)
-            .ToList();
+            .ToListAsync();
             List<ProductVM> productViewModels = new();
             foreach (var pc in productsCategory)
             {
@@ -81,10 +81,10 @@ namespace EcommerceApp.Interfaces.ProductCategory
             }
             return (productViewModels);
         }
-        public ProductDetailsVM GetSimilarProductsById(int productId)
+        public async Task<ProductDetailsVM> GetSimilarProductsByIdAsync(int productId)
         {
             //product reviews categories
-            var product = _productRepository.GetProductDetailsById(productId); //tu pobieram PRODUCT
+            var product = await _productRepository.GetProductDetailsByIdAsync(productId); //tu pobieram PRODUCT
             
             if(product == null)
             {
@@ -94,10 +94,10 @@ namespace EcommerceApp.Interfaces.ProductCategory
             var categories = product.ProductCategories.Select(pc => pc.CategoryId).ToList(); //all categories
 
 
-            var similarProducts = _context.Products
+            var similarProducts = await _context.Products
                 .Include(p => p.Reviews)
                 .Include(p => p.ProductCategories)
-                    .Where(p => p.ProductCategories.Any(pc => categories.Contains(pc.CategoryId))).ToList();
+                    .Where(p => p.ProductCategories.Any(pc => categories.Contains(pc.CategoryId))).ToListAsync();
             //search for product here
             if (similarProducts != null)
             {

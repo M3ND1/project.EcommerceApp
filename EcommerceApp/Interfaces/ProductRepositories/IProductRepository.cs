@@ -5,12 +5,12 @@ namespace EcommerceApp.Interfaces.ProductRepositories
 {
     public interface IProductRepository
     {
-        public ICollection<Product> GetAllProducts();
-        public void CreateProduct(ProductVM productVM); //TODO change from void to bool to handle exceptions
-        public Product GetProductById(int id);
-        public bool UpdateProduct(int id, ProductVM productVM);
-        public bool DeleteProduct(int id);
-        public IEnumerable<Product> SearchByName(string name);
-        public Product GetProductDetailsById(int id);
+        public Task<ICollection<Product>> GetAllProductsAsync();
+        public Task CreateProductAsync(ProductVM productVM); //TODO change from void to bool to handle exceptions
+        public Task<Product> GetProductByIdAsync(int id);
+        public Task<bool> UpdateProductAsync(int id, ProductVM productVM);
+        public Task<bool> DeleteProductAsync(int id);
+        public Task<IEnumerable<Product>> SearchByNameAsync(string name);
+        public Task<Product> GetProductDetailsByIdAsync(int id);
     }
 }

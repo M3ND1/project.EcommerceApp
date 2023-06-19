@@ -77,22 +77,13 @@
                 <h5 class="m-1" style="float:left;">@product.Price $</h5>
             </div>
             <div class="row">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Quantity
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        @for (int i = 1; i <= 10; i++)
-                        {
-                            <a class="dropdown-item" onclick="setQuantity(@i)">@i</a>
-                        }
-                    </div>
+                <div>
+                    <input class="form-control" type="number" id="quantityInput" name="quantity" placeholder="Enter quantity" />
                 </div>
-
             </div>
             <div class="row">
                 <div class="column">
-                    @if(!User.Identity.IsAuthenticated)
+                    @if (!User.Identity.IsAuthenticated)
                     {
                         <div class="d-inline-flex flex-column mb-3">
                             <form asp-area="Identity" asp-page="/Account/Login">
@@ -100,23 +91,23 @@
                                 <button type="submit" class="btn btn-outline-primary m-1">Kup teraz</button>
                             </form>
                         </div>
-                    } else
+                    }
+                    else
                     {
                         <div class="d-inline-flex flex-column mb-3">
                             @*TODO: koszyk*@
                             <button type="submit" class="btn btn-warning m-1">Dodaj do koszyka</button>
-                            <form asp-area="Order" asp-controller="Order" asp-action="Create">
-                                <input type="hidden" name="quantity" id="quantityInput"/>
+                            <form asp-area="Order" asp-controller="Order" asp-action="Create" method="post">
                                 <input type="hidden" name="productId" value="@product.Id" />
+                                <input type="hidden" name="quantity" id="quantity" value="" />
                                 <button type="submit" class="btn btn-outline-primary m-1">Kup teraz</button>
                             </form>
                         </div>
                     }
-
                 </div>
             </div>
             <div class="row">
-                <p class="mt-2"style="font-style:italic;">Aby uzyskać informacje o zwrotach, kliknij w nazwe sprzedawcy</p>
+                <p class="mt-2" style="font-style:italic;">Aby uzyskać informacje o zwrotach, kliknij w nazwe sprzedawcy</p>
             </div>
         </div>
     </div>
@@ -188,7 +179,12 @@
     $('#quantityBtn').click(function () {
         $('.collapse').toggle();
     });
-    function setQuantity(quantity) {
-        document.getElementById("quantityInput").value = quantity;
-    }
+
+    //get quantity
+    const quantityInput = document.getElementById('quantityInput');
+    const hiddenQuantityInput = document.getElementById('quantity');
+
+    quantityInput.addEventListener('change', function () {
+        hiddenQuantityInput.value = quantityInput.value;
+    });
 </script>

@@ -1,5 +1,6 @@
 ﻿using EcommerceApp.Data;
 using EcommerceApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceApp.Interfaces.ReviewRepositories
 {
@@ -11,7 +12,7 @@ namespace EcommerceApp.Interfaces.ReviewRepositories
             _context = context;
         }
 
-        public void CreateReview(Review review)
+        public async Task CreateReviewAsync(Review review)
         {
             var newReview = new Review
             {
@@ -21,17 +22,17 @@ namespace EcommerceApp.Interfaces.ReviewRepositories
                 CreatedDate = DateTime.UtcNow,
                 ProductId = review.ProductId
             };
-            _context.Reviews.Add(newReview);
-            _context.SaveChanges();
+            await _context.Reviews.AddAsync(newReview);
+            await _context.SaveChangesAsync();
         }
 
-        public bool DeleteReview(int id)
+        public async Task<bool> DeleteReviewAsync(int id)
         {
-            var existingReview = _context.Reviews.FirstOrDefault(r => r.Id  == id); 
+            var existingReview = await _context.Reviews.FirstOrDefaultAsync(r => r.Id  == id); 
             if(existingReview != null)
             {
                 _context.Reviews.Remove(existingReview); 
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return true;
             }
             else
@@ -40,18 +41,18 @@ namespace EcommerceApp.Interfaces.ReviewRepositories
             }
         }
 
-        public ICollection<Review> GetAllReviews()
+        public async Task<ICollection<Review>> GetAllReviewsAsync()
         {
-            ICollection<Review> reviews = _context.Reviews.ToList();
+            ICollection<Review> reviews = await _context.Reviews.ToListAsync();
             return reviews;
         }
 
-        public Review SearchById(int id)
+        public async Task<Review> SearchByIdAsync(int id)
         {
-            return _context.Reviews.FirstOrDefault(r => r.Id == id)!;
+            return await _context.Reviews.FirstOrDefaultAsync(r => r.Id == id)!;
         }
 
-        public bool UpdateReview(int id)
+        public Task<bool> UpdateReviewAsync(int id)
         {
             throw new NotImplementedException();
         }

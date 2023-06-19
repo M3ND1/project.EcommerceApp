@@ -19,39 +19,39 @@ namespace EcommerceApp.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var allCategories = _categoryRepository.GetAllCategories();
+            var allCategories = await _categoryRepository.GetAllCategoriesAsync();
             return View(allCategories);
         }
         [HttpPost]
-        public IActionResult Search([FromForm] string inputValue)
+        public async Task<IActionResult> Search([FromForm] string inputValue)
         {
-            var data = _categoryRepository.SearchByName(inputValue);
+            var data = await _categoryRepository.SearchByNameAsync(inputValue);
             return PartialView("_CategorySearchResults", data);
         }
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var category = _categoryRepository.GetCategoryById(id);
+            var category = await _categoryRepository.GetCategoryByIdAsync(id);
             if (category == null)
                 BadRequest();
 
             return View(category);
         }
-        public IActionResult Create(int id)
+        public async Task<IActionResult> Create(int id)
         {
-            var category = _categoryRepository.GetCategoryById(id);
+            var category = await _categoryRepository.GetCategoryByIdAsync(id);
             if (category == null)
                 BadRequest();
 
             return View(category);
         }
-        [HttpPost, ActionName("CreateCategory")]
-        public IActionResult CreateCategory([Bind("Name")]Category category)
+        [HttpPost,ActionName("CreateCategory")]
+        public async Task<IActionResult> CreateCategory([Bind("Name")]Category category)
         {
             if (ModelState.IsValid)
             {
-                _categoryRepository.CreateCategory(category);
+                await _categoryRepository.CreateCategoryAsync(category);
                 return RedirectToAction("Index");
             }
             else
@@ -59,29 +59,29 @@ namespace EcommerceApp.Controllers
                 return View(category);
             }
         }
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var category = _categoryRepository.GetCategoryById(id);
+            var category = await _categoryRepository.GetCategoryByIdAsync(id);
             return View(category);
         }
         [HttpPost, ActionName("EditCategory")]
-        public IActionResult EditCategory(int id, [Bind("Name")] Category category)
+        public async Task<IActionResult> EditCategory(int id, [Bind("Name")] Category category)
         {
-            bool newcategory = _categoryRepository.UpdateCategory(id, category);
+            bool newcategory = await _categoryRepository.UpdateCategoryAsync(id, category);
             if(!newcategory) BadRequest(); // temporary
             
             return RedirectToAction("Index");
         }
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var category = _categoryRepository.GetCategoryById(id);
+            var category = await _categoryRepository.GetCategoryByIdAsync(id);
             return View(category);
         }
 
         [HttpPost, ActionName("DeleteCategory")]
-        public IActionResult DeleteCategory(int id)
+        public async Task<IActionResult> DeleteCategoryAsync(int id)
         {
-            bool category = _categoryRepository.DeleteCategory(id);
+            bool category = await _categoryRepository.DeleteCategoryAsync(id);
             if(!category) BadRequest();
 
             return RedirectToAction("Index");

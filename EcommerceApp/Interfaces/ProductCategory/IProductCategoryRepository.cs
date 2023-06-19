@@ -8,9 +8,9 @@ namespace EcommerceApp.Interfaces.ProductCategory
 {
     public interface IProductCategoryRepository
     {
-        public (List<Category> categories, List<EcommerceApp.ViewModels.ProductVM> products) GetAllProductCategories();
-        public List<ProductVM> GetProductCategories();
-        public List<ProductVM> GetProductByCategoryId(int categoryId);
-        public ProductDetailsVM GetSimilarProductsById(int productId);
+        public Task<(List<Category> categories, List<EcommerceApp.ViewModels.ProductVM> products)> GetAllProductCategoriesAsync();
+        public Task<List<ProductVM>> GetProductCategoriesAsync();
+        public Task<List<ProductVM>> GetProductByCategoryIdAsync(int categoryId);
+        public Task<ProductDetailsVM> GetSimilarProductsByIdAsync(int productId);
     }
 }

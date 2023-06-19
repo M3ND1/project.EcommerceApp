@@ -2,6 +2,7 @@
 @{
     int quantity = (int)ViewBag.Quantity;
     Product product = ViewBag.Product;
+    string status = "Pending...";
 }
 <div class="row">
     <!-- First column -->
@@ -11,34 +12,41 @@
                 <h4>Dane odbiorcy do przesyłki</h4>
             </div>
         </div>
-        <form asp-action="CreateOrder">
+        <form asp-action="CreateOrder" method="post">
             <div class="form-group mt-3">
                 <label asp-for="UserName">Imie i nazwisko</label>
                 <input type="text" class="form-control" asp-for="UserName" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group mt-3">
                 <label asp-for="ShippingAddress">Adres dostawy</label>
                 <input type="text" class="form-control" asp-for="ShippingAddress" />
+                <span asp-validation-for="ShippingAddress" class="text-danger"></span>
             </div>
             <div class="form-group mt-3">
                 <label asp-for="PostalCode">Kod pocztowy i miasto</label>
                 <input type="text" class="form-control" asp-for="PostalCode" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
             </div>
             <div class="form-group mt-3">
-                <label asp-for="PhoneNumber">Numer telefonnu</label>
+                <label asp-for="PhoneNumber">Numer telefonu</label>
                 <input type="text" class="form-control" asp-for="PhoneNumber" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group mt-3">
                 <label asp-for="PaymentMethod">Metoda płatności</label>
-                <input type="hidden" id="paymentMethod" name="PaymentMethod" value="" />
-                <div class="d-flex flex-column">
-                    <button type="submit" class="btn btn-primary mb-2" name="PaymentMethod" value="paypal">PayPal</button>
-                    <button type="submit" class="btn btn-success mb-2" name="PaymentMethod" value="credit_card">Karta kredytowa</button>
-                    <button type="submit" class="btn btn-info" name="PaymentMethod" value="bank_transfer">Przelew bankowy</button>
-                </div>
+                <input type="text" class="form-control" asp-for="PaymentMethod" />
+                <span asp-validation-for="PaymentMethod" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="UserId" asp-value="@User.Identity.Name" />
-            <input type="hidden" asp-for="Status" value="Pending..." />
+
+            <input type="hidden" asp-for="UserId" asp-value="@ViewBag.UserId" />
+            <input type="hidden" asp-for="User" asp-value="@ViewBag.User" />
+            <input type="hidden" asp-for="Status" asp-value="@status" />
+            @*method arguments*@
+            <input type="hidden" name="price" value="@(product.Price + 9.99M)" />
+            <input type="hidden" name="quantity" value="@quantity" />
+            <input type="hidden" name="productId" value="@product.Id" />
+            <button type="submit" class="btn btn-primary mt-3">Create Order</button>
         </form>
 
         <div class="row mt-3">
@@ -48,23 +56,19 @@
 
                 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
                 <script>
-                    // Tworzenie mapy
-                    var map = L.map('map').setView([52.2297, 21.0122], 13); // Ustawienie początkowego widoku mapy
+                    var map = L.map('map').setView([52.2297, 21.0122], 13);
 
-                    // Dodanie warstwy mapy
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
                         maxZoom: 18,
                     }).addTo(map);
 
-                    // Pobieranie danych paczkomatów z API Paczkomatu
-                    var apiUrl = 'https://api.paczkomaty.pl/v1/pickup-points?latitude=52.2297&longitude=21.0122'; // Przykładowe parametry
+                    var apiUrl = 'https://api.paczkomaty.pl/v1/pickup-points?latitude=52.2297&longitude=21.0122';
                     fetch(apiUrl)
                         .then(function (response) {
                             return response.json();
                         })
                         .then(function (data) {
-                            // Wyrenderowanie znaczników paczkomatów na mapie
                             data.pickupPoints.forEach(function (pickupPoint) {
                                 var marker = L.marker([pickupPoint.latitude, pickupPoint.longitude]).addTo(map);
                                 marker.bindPopup('<b>' + pickupPoint.name + '</b><br/>' + pickupPoint.address.full);

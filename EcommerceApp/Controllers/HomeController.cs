@@ -21,10 +21,10 @@ namespace EcommerceApp.Controllers
             _productCategoryRepository = productCategoryRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             
-            var (categories, products) = _productCategoryRepository.GetAllProductCategories();
+            var (categories, products) = await _productCategoryRepository.GetAllProductCategoriesAsync();
             var model = new ProductCategoryVM
             {
                 Categories = categories,
@@ -34,7 +34,7 @@ namespace EcommerceApp.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }

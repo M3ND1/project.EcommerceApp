@@ -13,9 +13,9 @@ namespace EcommerceApp.Controllers
             _repository = repository;
 
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var allProductsCategories = _repository.GetAllProductCategoriesOrders();
+            var allProductsCategories = await _repository.GetAllProductCategoriesOrdersAsync();
             return View(allProductsCategories);
         }
 

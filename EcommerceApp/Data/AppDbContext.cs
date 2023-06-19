@@ -15,6 +15,7 @@ namespace EcommerceApp.Data
         public DbSet<AppUser> AppUsers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             //FK Order Product table
             modelBuilder.Entity<ProductOrder>()
                 .HasKey(po => new {po.OrderId, po.ProductId});
@@ -48,8 +49,6 @@ namespace EcommerceApp.Data
                 .HasOne(r => r.User)
                 .WithMany(au => au.Orders)
                 .HasForeignKey(r => r.UserId);
-            base.OnModelCreating(modelBuilder);
-
         }
     }
 }

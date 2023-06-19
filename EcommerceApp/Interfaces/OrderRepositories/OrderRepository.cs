@@ -1,5 +1,6 @@
 ﻿using EcommerceApp.Data;
 using EcommerceApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceApp.Interfaces.OrderRepositories
 {
@@ -11,62 +12,67 @@ namespace EcommerceApp.Interfaces.OrderRepositories
             _context = context;
         }
 
-        public void CreateBasketOrder()
+        public async Task CreateBasketOrderAsync()
         {
             throw new NotImplementedException();
         }
 
-        public void CreateOrder(Order order, int quantity, int productId, decimal price)
+        public async Task CreateOrderAsync(Order order, int quantity, int productId, decimal price)
         {
+
             var newOrder = new Order
             {
-                UserId = order.UserId,
-                OrderDate = order.OrderDate,
+                OrderDate = DateTime.Now,
                 TotalAmount = order.TotalAmount,
-                Status = order.Status,
+                PhoneNumber = order.PhoneNumber,
+                Status = "Pending...",
+                PostalCode = order.PostalCode,
+                UserName = order.UserName,
                 ShippingAddress = order.ShippingAddress,
-                PaymentMethod = order.PaymentMethod
+                PaymentMethod = order.PaymentMethod,
+                ProductId = productId,
             };
-            _context.Orders.Add(newOrder);
-            _context.SaveChanges();
-            //relation
-            var UserOrder = new Models.ProductOrder
+            await _context.Orders.AddAsync(newOrder);
+            await _context.SaveChangesAsync();
+
+            var productOrder = new ProductOrder
             {
                 Quantity = quantity,
                 ShippingAddress = order.ShippingAddress,
                 IsShipped = false,
                 UnitPrice = price,
-                Subtotal = price+0.5M,
+                Subtotal = price + 0.5M,
                 IsCancelled = false,
                 CancellationReason = "",
                 OrderId = newOrder.Id,
                 ProductId = productId
             };
-            _context.ProductOrders.Add(UserOrder);
-            _context.SaveChanges();
+            await _context.ProductOrders.AddAsync(productOrder);
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteOrder(int id)
+
+        public Task DeleteOrderAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public ICollection<Order> GetAllOrders()
+        public async Task<ICollection<Order>> GetAllOrdersAsync()
         {
-            return _context.Orders.ToList();
+            return await _context.Orders.ToListAsync();
         }
 
-        public Order GetOrder(int id)
+        public async Task<Order> GetOrderAsync(int id)
         {
-            return _context.Orders.FirstOrDefault(o => o.Id == id)!;
+            return await _context.Orders.FirstOrDefaultAsync(o => o.Id == id)!;
         }
 
-        public bool isOrderExisting(int orderId)
+        public async Task<bool> isOrderExistingAsync(int orderId)
         {
-            return _context.Orders.Any(x => x.Id == orderId);
+            return await _context.Orders.AnyAsync(x => x.Id == orderId);
         }
 
-        public void UpdateOrder(Order order)
+        public async Task UpdateOrderAsync(Order order)
         {
             throw new NotImplementedException();
         }

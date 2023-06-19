@@ -4,11 +4,11 @@ namespace EcommerceApp.Interfaces.CategoryRepositories
 {
     public interface ICategoryRepository
     {
-        public ICollection<Category> GetAllCategories();
-        public Category GetCategoryById(int id);
-        public IEnumerable<Category> SearchByName(string name);
-        public bool UpdateCategory(int id, Category category);
-        public void CreateCategory(Category category);
-        public bool DeleteCategory(int id);
+        public Task<ICollection<Category>> GetAllCategoriesAsync();
+        public Task<Category> GetCategoryByIdAsync(int id);
+        public Task<IEnumerable<Category>> SearchByNameAsync(string name);
+        public Task<bool> UpdateCategoryAsync(int id, Category category);
+        public Task CreateCategoryAsync(Category category);
+        public Task<bool> DeleteCategoryAsync(int id);
     }
 }

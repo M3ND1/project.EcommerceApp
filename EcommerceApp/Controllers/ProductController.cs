@@ -19,58 +19,58 @@ namespace EcommerceApp.Controllers
             _categoryRepository = categoryRepository;
             _productCategoryRepository = productCategoryRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var data = _productRepository.GetAllProducts();
+            var data = await _productRepository.GetAllProductsAsync();
             return View(data);
         }
         [HttpPost]
-        public IActionResult Search([FromForm] string inputValue)
+        public async Task<IActionResult> Search([FromForm] string inputValue)
         {
-            var data = _productRepository.SearchByName(inputValue);
+            var data = await _productRepository.SearchByNameAsync(inputValue);
             return PartialView("_ProductSearchResults", data);
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var productVM = new ProductVM
             {
-                Categories = _categoryRepository.GetAllCategories().ToList()
+                Categories = await _categoryRepository.GetAllCategoriesAsync()
             };
             return View(productVM);
         }
         [HttpPost]
-        public IActionResult CreateProduct([Bind("Name, Description, ImageUrl,Price,CreatedAt,Color,Width,Height,Depth,Weight,Material,SelectedCategoryId")] ProductVM productVM)
+        public async Task<IActionResult> CreateProduct([Bind("Name, Description, ImageUrl,Price,CreatedAt,Color,Width,Height,Depth,Weight,Material,SelectedCategoryId")] ProductVM productVM)
         {
             if(ModelState.IsValid)
             {
-                _productRepository.CreateProduct(productVM);
+                await _productRepository.CreateProductAsync(productVM);
                 return RedirectToAction(nameof(Index));
             } else
             {
                 return BadRequest();
             }
         }
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var product = _productRepository.GetProductById(id);
+            var product = await _productRepository.GetProductByIdAsync(id);
             if(product == null)
             {
                 BadRequest();
             }
             return View(product);
         }
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var productCategories = _productCategoryRepository.GetSimilarProductsById(id);
+            var productCategories = await _productCategoryRepository.GetSimilarProductsByIdAsync(id);
 
             return View(productCategories);
         }
         [HttpPost, ActionName("EditProduct")]
-        public IActionResult EditProduct(int id, [Bind("Name, Description, ImageUrl,Price")] ProductVM productVM)
+        public async Task<IActionResult> EditProduct(int id, [Bind("Name, Description, ImageUrl,Price")] ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-                bool isUpdated = _productRepository.UpdateProduct(id, productVM);
+                bool isUpdated = await _productRepository.UpdateProductAsync(id, productVM);
                 if(isUpdated)
                 {
                     return RedirectToAction(nameof(Index));
@@ -81,15 +81,15 @@ namespace EcommerceApp.Controllers
             }
             return View(productVM);//temporary
         }
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var product = _productRepository.GetProductById(id);
+            var product = await _productRepository.GetProductByIdAsync(id);
             return View(product);
         }
         [HttpPost, ActionName("DeleteProduct")]
-        public IActionResult DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
-            bool productDeletion = _productRepository.DeleteProduct(id);
+            bool productDeletion = await _productRepository.DeleteProductAsync(id);
             if(productDeletion)
                 return RedirectToAction(nameof(Index));
             else 

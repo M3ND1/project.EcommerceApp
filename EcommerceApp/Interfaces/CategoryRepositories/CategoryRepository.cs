@@ -1,5 +1,6 @@
 ﻿using EcommerceApp.Data;
 using EcommerceApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceApp.Interfaces.CategoryRepositories
 {
@@ -11,51 +12,51 @@ namespace EcommerceApp.Interfaces.CategoryRepositories
             _context = context;
         }
 
-        public void CreateCategory(Category category)
+        public async Task CreateCategoryAsync(Category category)
         {
-            _context.Categories.Add(new Category { Name = category.Name });
-            _context.SaveChanges();
+            await _context.Categories.AddAsync(new Category { Name = category.Name });
+            await _context.SaveChangesAsync();
             //validation if category was created later (void to bool)
         }
 
-        public bool DeleteCategory(int id)
+        public async Task<bool> DeleteCategoryAsync(int id)
         {
-            var category = GetCategoryById(id);
+            var category = await GetCategoryByIdAsync(id);
             if (category != null)
             {
                 _context.Categories.Remove(category);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return true;
             }
             return false;
         }
 
-        public ICollection<Category> GetAllCategories()
+        public async Task<ICollection<Category>> GetAllCategoriesAsync()
         {
-            var allCategories = _context.Categories.ToList();
+            var allCategories = await _context.Categories.ToListAsync();
 
             return allCategories;
         }
 
-        public Category GetCategoryById(int id)
+        public async Task<Category> GetCategoryByIdAsync(int id)
         {
-            var category = _context.Categories.FirstOrDefault(c => c.Id == id);
+            var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
             return category!;
         }
 
-        public IEnumerable<Category> SearchByName(string name)
+        public async Task<IEnumerable<Category>> SearchByNameAsync(string name)
         {
-            return _context.Categories.Where(c => c.Name.Contains(name)).ToList();
+            return await _context.Categories.Where(c => c.Name.Contains(name)).ToListAsync();
         }
 
-        public bool UpdateCategory(int id, Category category)
+        public async Task<bool> UpdateCategoryAsync(int id, Category category)
         {
             //var existingCategory = GetCategoryById(category.Id);
-            var existingCategory = _context.Categories.FirstOrDefault(c => c.Id == id);
+            var existingCategory = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
             if (existingCategory != null)
             {
                 existingCategory.Name = category.Name;
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return true;
             }
             else return false;

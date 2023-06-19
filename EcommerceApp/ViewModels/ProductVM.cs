@@ -17,7 +17,7 @@ namespace EcommerceApp.ViewModels
         //public double ShoeLength????? 
         public double Weight { get; set; }
         public string Material { get; set; }
-        public List<Category>? Categories{ get; set; }
+        public ICollection<Category>? Categories{ get; set; }
         public int SelectedCategoryId { get; set; }
     }
 }

@@ -4,10 +4,10 @@ namespace EcommerceApp.Interfaces.ReviewRepositories
 {
     public interface IReviewRepository
     {
-        public ICollection<Review> GetAllReviews();
-        public void CreateReview(Review review);
-        public bool UpdateReview(int id);
-        public bool DeleteReview(int id);
-        public Review SearchById(int id);
+        public Task<ICollection<Review>> GetAllReviewsAsync();
+        public Task CreateReviewAsync(Review review);
+        public Task<bool> UpdateReviewAsync(int id);
+        public Task<bool> DeleteReviewAsync(int id);
+        public Task<Review> SearchByIdAsync(int id);
     }
 }

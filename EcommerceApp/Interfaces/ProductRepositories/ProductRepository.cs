@@ -12,7 +12,7 @@ namespace EcommerceApp.Interfaces.ProductRepositories
         {
             _context = context;
         }
-        public void CreateProduct(ProductVM productVM)
+        public async Task CreateProductAsync(ProductVM productVM)
         {
             var product = new Product
             {
@@ -28,63 +28,63 @@ namespace EcommerceApp.Interfaces.ProductRepositories
                 Weight = productVM.Weight,
                 Material = productVM.Material
             };
-            _context.Products.Add(product);
-            _context.SaveChanges();
+            await _context.Products.AddAsync(product);
+            await _context.SaveChangesAsync();
             //relation
             var productCategory = new Models.ProductCategory
             {
                 CategoryId = productVM.SelectedCategoryId,
                 ProductId = product.Id
             };
-            _context.ProductCategories.Add(productCategory);
-            _context.SaveChanges();
+            await _context.ProductCategories.AddAsync(productCategory);
+            await _context.SaveChangesAsync();
         }
 
-        public bool DeleteProduct(int id)
+        public async Task<bool> DeleteProductAsync(int id)
         {
-            var product = GetProductById(id);
+            var product = await GetProductByIdAsync(id);
             _context.Products.Remove(product);
-            _context.SaveChanges();
-            var deletedProduct = _context.Products.FirstOrDefault(x => x.Id == id);
+            await _context.SaveChangesAsync();
+            var deletedProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
             if (deletedProduct == null)
                 return true;
 
             return false;
         }
 
-        public ICollection<Product> GetAllProducts()
+        public async Task<ICollection<Product>> GetAllProductsAsync()
         {
-            var allProducts = _context.Products.ToList();
+            var allProducts = await _context.Products.ToListAsync();
             return allProducts;
         }
 
-        public Product GetProductById(int id)
+        public async Task<Product> GetProductByIdAsync(int id)
         {
-            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             return product!;
         }
 
-        public Product GetProductDetailsById(int id)
+        public async Task<Product> GetProductDetailsByIdAsync(int id)
         {
-            var product = _context.Products
+            var product = await _context.Products
                 .Include(p => p.ProductCategories)
                     .ThenInclude(pc => pc.Category)
                 .Include(p => p.Reviews)
                     .ThenInclude(p => p.User)
-                .FirstOrDefault(p => p.Id == id);
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             return product;
         }
 
-        public IEnumerable<Product> SearchByName(string name)
+        public async Task<IEnumerable<Product>> SearchByNameAsync(string name)
         {
-            var data = _context.Products.Where(n => n.Name.Contains(name)).ToList()!;
+            var data = await _context.Products.Where(n => n.Name.Contains(name)).ToListAsync()!;
             return data;
         }
 
-        public bool UpdateProduct(int id, ProductVM productVM)
+        public async Task<bool> UpdateProductAsync(int id, ProductVM productVM)
         {
-            var existingProduct = _context.Products.FirstOrDefault(p => p.Id == id);
+            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             if (existingProduct != null)
             {
                 existingProduct.Name = productVM.Name;
@@ -92,7 +92,7 @@ namespace EcommerceApp.Interfaces.ProductRepositories
                 existingProduct.ImageUrl = productVM.ImageUrl;
                 existingProduct.Price = productVM.Price;
                 _context.Products.Update(existingProduct);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return true;
             }
             return false;

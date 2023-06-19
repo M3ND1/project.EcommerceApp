@@ -7,14 +7,14 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <form asp-controller="Category" asp-action="CreateCategory">
+        <form method="post">
             <caption class="text-center">Enter category name and then you can assign it to your product!</caption>
             <div class="input-group mb-1">
                 <span class="input-group-text" id="add2">Name</span>
-                <input asp-for="Name" aria-describedby="add2" class="form-control" placeholder="Enter category name"/>
+                <input asp-for="Name" aria-describedby="add2" class="form-control" placeholder="Enter category name" />
             </div>
-            <button type="submit" class="btn btn-success">Create</button>
-            <button class="btn btn-outline-secondary" type="submit" asp-action="Index">Go Back</button>
+            <button asp-controller="Category" asp-action="CreateCategory" class="btn btn-success"> Create </button>
+            <input class="btn btn-outline-secondary" type="submit" asp-action="Index" value="Go Back" />
         </form>
     </div>
 </div>
